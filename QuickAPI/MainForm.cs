@@ -23,10 +23,12 @@ namespace QuickAPI
         {
             TokenReceiver.requestTypeIndex = requestTypeComboBox.SelectedIndex;
             TokenReceiver.entityTypeIndex = entityTypeComboBox.SelectedIndex;
-
+            /*
             string login = null;
             string password = null;
-            TokenReceiver.CreateObject(login, password);
+            TokenReceiver.CreateObject(login, password);*/
+
+            TokenReceiver.SendJson();
 
         }
 

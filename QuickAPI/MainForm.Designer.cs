@@ -50,7 +50,7 @@
             this.groupBox1.Controls.Add(this.requestTypeComboBox);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(39, 24);
+            this.groupBox1.Location = new System.Drawing.Point(22, 28);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(335, 87);
             this.groupBox1.TabIndex = 0;
@@ -103,7 +103,7 @@
             this.sendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sendButton.ForeColor = System.Drawing.Color.White;
-            this.sendButton.Location = new System.Drawing.Point(109, 231);
+            this.sendButton.Location = new System.Drawing.Point(92, 235);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(208, 35);
             this.sendButton.TabIndex = 1;
@@ -114,44 +114,44 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label3.Location = new System.Drawing.Point(6, 60);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(136, 17);
+            this.label3.Size = new System.Drawing.Size(109, 17);
             this.label3.TabIndex = 4;
             this.label3.Text = "Selected action:";
             // 
             // eventLabel
             // 
             this.eventLabel.AutoSize = true;
-            this.eventLabel.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.eventLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.eventLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.eventLabel.Location = new System.Drawing.Point(151, 60);
+            this.eventLabel.Location = new System.Drawing.Point(121, 60);
             this.eventLabel.Name = "eventLabel";
-            this.eventLabel.Size = new System.Drawing.Size(56, 17);
+            this.eventLabel.Size = new System.Drawing.Size(46, 17);
             this.eventLabel.TabIndex = 5;
             this.eventLabel.Text = "action";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label4.Location = new System.Drawing.Point(6, 28);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(184, 17);
+            this.label4.Size = new System.Drawing.Size(153, 17);
             this.label4.TabIndex = 6;
             this.label4.Text = "Selected environment: ";
             // 
             // environmentLabel
             // 
             this.environmentLabel.AutoSize = true;
-            this.environmentLabel.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.environmentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.environmentLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.environmentLabel.Location = new System.Drawing.Point(196, 28);
+            this.environmentLabel.Location = new System.Drawing.Point(165, 28);
             this.environmentLabel.Name = "environmentLabel";
-            this.environmentLabel.Size = new System.Drawing.Size(88, 17);
+            this.environmentLabel.Size = new System.Drawing.Size(76, 17);
             this.environmentLabel.TabIndex = 7;
             this.environmentLabel.Text = "Production";
             // 
@@ -159,7 +159,7 @@
             // 
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(290, 21);
+            this.button1.Location = new System.Drawing.Point(251, 21);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(69, 32);
             this.button1.TabIndex = 8;
@@ -174,9 +174,9 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.environmentLabel);
             this.groupBox2.Controls.Add(this.eventLabel);
-            this.groupBox2.Location = new System.Drawing.Point(24, 117);
+            this.groupBox2.Location = new System.Drawing.Point(22, 121);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(368, 100);
+            this.groupBox2.Size = new System.Drawing.Size(335, 100);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Info";
@@ -186,7 +186,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(412, 285);
+            this.ClientSize = new System.Drawing.Size(379, 285);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.groupBox1);

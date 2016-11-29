@@ -20,7 +20,22 @@ namespace QuickAPI
         private static string response;
         private static string url;
 
-        public static void LoadJson()
+        private static string RandomString(int Size)
+        {
+            Random random = new Random();
+            //abcdefghijklmnopqrstuvwxyz
+            string input = "0123456789";
+            StringBuilder builder = new StringBuilder();
+            char ch;
+            for (int i = 0; i < Size; i++)
+            {
+                ch = input[random.Next(0, input.Length)];
+                builder.Append(ch);
+            }
+            return builder.ToString();
+        }
+
+        private static void LoadJson()
         {
             List<String> jsonFilesList = new List<String>();
             jsonFilesList.Add("/product.json");
@@ -29,12 +44,51 @@ namespace QuickAPI
 
             using (StreamReader r = new StreamReader("json/" + jsonFilesList[entityTypeIndex]))
             {
-                Console.WriteLine("Selected json file: json/" + jsonFilesList[entityTypeIndex]);
-
                 json = r.ReadToEnd();
                 dynamic array = JsonConvert.DeserializeObject(json);
                 json = array.ToString();
             }
+        }
+
+        private static void UpdateJson()
+        {
+            json = json.Replace("xxxxx", RandomString(5));
+        }
+        public static void SendJson()
+        {
+            List<String> recourcesList = new List<String>();
+            recourcesList.Add("/auth");
+            recourcesList.Add("/products");
+            recourcesList.Add("/warehouses");
+            recourcesList.Add("/customers");
+
+            List<String> requestsList = new List<String>();
+            requestsList.Add("POST");
+            requestsList.Add("PUT");
+            requestsList.Add("DELETE");
+
+            LoadJson();
+            UpdateJson();
+            string result = "";
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    url = recourcesList[entityTypeIndex + 1];
+                    client.Headers.Add("x-freestyle-api-auth", ApiToken);
+
+                    client.Headers[HttpRequestHeader.ContentType] = "application/json";
+                    result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex], json);
+                }
+                url = url.Trim('/').TrimEnd('s');
+                MessageBox.Show("Request completed.\nNew " + url + " has been created.");
+            }
+            catch (WebException e)
+            {
+                Console.WriteLine(result);
+                MessageBox.Show("Request failed:\n" + e.Message + "\n" + result);
+            }
+
         }
 
         public static void CreateObject(string login, string password)
@@ -53,7 +107,6 @@ namespace QuickAPI
             if (ApiToken != null)
             {
                 url = recourcesList[entityTypeIndex + 1];
-                Console.Out.WriteLine("---url: " + url);
                 LoadJson();
             }
             else url = recourcesList[0];
@@ -67,6 +120,7 @@ namespace QuickAPI
             if (url != recourcesList[0])
             {
                 request.Headers.Add("x-freestyle-api-auth", ApiToken);
+                UpdateJson();
                 DATA = json;
             }
 
@@ -96,7 +150,7 @@ namespace QuickAPI
                 }
 
             }
-            catch (Exception e)
+            catch (WebException e)
             {
                 Console.Out.WriteLine("-----------------");
                 Console.Out.WriteLine("----Response(catch): " + response);
@@ -105,6 +159,7 @@ namespace QuickAPI
             }
 
             response = "";
+
         }
     }
 }
