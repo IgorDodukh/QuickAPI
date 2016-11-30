@@ -50,9 +50,11 @@
             this.groupBox1.Controls.Add(this.requestTypeComboBox);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(22, 28);
+            this.groupBox1.Location = new System.Drawing.Point(16, 23);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(335, 87);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(251, 71);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Request options";
@@ -61,9 +63,10 @@
             // 
             this.entityTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.entityTypeComboBox.FormattingEnabled = true;
-            this.entityTypeComboBox.Location = new System.Drawing.Point(154, 48);
+            this.entityTypeComboBox.Location = new System.Drawing.Point(116, 39);
+            this.entityTypeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.entityTypeComboBox.Name = "entityTypeComboBox";
-            this.entityTypeComboBox.Size = new System.Drawing.Size(166, 24);
+            this.entityTypeComboBox.Size = new System.Drawing.Size(126, 21);
             this.entityTypeComboBox.TabIndex = 3;
             this.entityTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.entityTypeComboBox_SelectedIndexChanged);
             // 
@@ -71,27 +74,30 @@
             // 
             this.requestTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.requestTypeComboBox.FormattingEnabled = true;
-            this.requestTypeComboBox.Location = new System.Drawing.Point(9, 48);
+            this.requestTypeComboBox.Location = new System.Drawing.Point(7, 39);
+            this.requestTypeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.requestTypeComboBox.Name = "requestTypeComboBox";
-            this.requestTypeComboBox.Size = new System.Drawing.Size(105, 24);
+            this.requestTypeComboBox.Size = new System.Drawing.Size(80, 21);
             this.requestTypeComboBox.TabIndex = 2;
             this.requestTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.requestTypeComboBox_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(151, 28);
+            this.label2.Location = new System.Drawing.Point(113, 23);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 17);
+            this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Entity Type";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 28);
+            this.label1.Location = new System.Drawing.Point(4, 23);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 17);
+            this.label1.Size = new System.Drawing.Size(74, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Request Type";
             // 
@@ -103,9 +109,10 @@
             this.sendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sendButton.ForeColor = System.Drawing.Color.White;
-            this.sendButton.Location = new System.Drawing.Point(92, 235);
+            this.sendButton.Location = new System.Drawing.Point(69, 191);
+            this.sendButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.sendButton.Name = "sendButton";
-            this.sendButton.Size = new System.Drawing.Size(208, 35);
+            this.sendButton.Size = new System.Drawing.Size(156, 28);
             this.sendButton.TabIndex = 1;
             this.sendButton.Text = "Send";
             this.sendButton.UseVisualStyleBackColor = false;
@@ -116,9 +123,10 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(6, 60);
+            this.label3.Location = new System.Drawing.Point(4, 49);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 17);
+            this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Selected action:";
             // 
@@ -127,9 +135,10 @@
             this.eventLabel.AutoSize = true;
             this.eventLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.eventLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.eventLabel.Location = new System.Drawing.Point(121, 60);
+            this.eventLabel.Location = new System.Drawing.Point(91, 49);
+            this.eventLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.eventLabel.Name = "eventLabel";
-            this.eventLabel.Size = new System.Drawing.Size(46, 17);
+            this.eventLabel.Size = new System.Drawing.Size(36, 13);
             this.eventLabel.TabIndex = 5;
             this.eventLabel.Text = "action";
             // 
@@ -138,9 +147,10 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label4.Location = new System.Drawing.Point(6, 28);
+            this.label4.Location = new System.Drawing.Point(4, 23);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(153, 17);
+            this.label4.Size = new System.Drawing.Size(116, 13);
             this.label4.TabIndex = 6;
             this.label4.Text = "Selected environment: ";
             // 
@@ -149,9 +159,10 @@
             this.environmentLabel.AutoSize = true;
             this.environmentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.environmentLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.environmentLabel.Location = new System.Drawing.Point(165, 28);
+            this.environmentLabel.Location = new System.Drawing.Point(124, 23);
+            this.environmentLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.environmentLabel.Name = "environmentLabel";
-            this.environmentLabel.Size = new System.Drawing.Size(76, 17);
+            this.environmentLabel.Size = new System.Drawing.Size(58, 13);
             this.environmentLabel.TabIndex = 7;
             this.environmentLabel.Text = "Production";
             // 
@@ -159,9 +170,10 @@
             // 
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(251, 21);
+            this.button1.Location = new System.Drawing.Point(188, 17);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(69, 32);
+            this.button1.Size = new System.Drawing.Size(52, 26);
             this.button1.TabIndex = 8;
             this.button1.Text = "Сhange";
             this.button1.UseVisualStyleBackColor = true;
@@ -174,22 +186,26 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.environmentLabel);
             this.groupBox2.Controls.Add(this.eventLabel);
-            this.groupBox2.Location = new System.Drawing.Point(22, 121);
+            this.groupBox2.Location = new System.Drawing.Point(16, 98);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(335, 100);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(251, 81);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Info";
             // 
             // QuickAPIMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(379, 285);
+            this.ClientSize = new System.Drawing.Size(284, 232);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "QuickAPIMain";

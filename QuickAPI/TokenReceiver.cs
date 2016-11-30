@@ -67,11 +67,12 @@ namespace QuickAPI
             requestsList.Add("PUT");
             requestsList.Add("DELETE");
 
-            LoadJson();
-            UpdateJson();
             string result = "";
             try
             {
+                LoadJson();
+                UpdateJson();
+
                 using (var client = new WebClient())
                 {
                     url = recourcesList[entityTypeIndex + 1];
@@ -83,7 +84,7 @@ namespace QuickAPI
                 url = url.Trim('/').TrimEnd('s');
                 MessageBox.Show("Request completed.\nNew " + url + " has been created.");
             }
-            catch (WebException e)
+            catch (Exception e)
             {
                 Console.WriteLine(result);
                 MessageBox.Show("Request failed:\n" + e.Message + "\n" + result);
