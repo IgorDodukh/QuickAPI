@@ -142,19 +142,9 @@ namespace QuickAPI
             form.CancelButton = buttonCancel;
 
             DialogResult dialogResult = form.ShowDialog();
-
-            if (textBox1.Text == "" && textBox2.Text == "" && textBox3.Text == "" && textBox4.Text == "" && textBox5.Text != "")
-            {
-                value = textBox1.Text;
-                value = value + ", " + textBox2.Text;
-                Console.Out.WriteLine("Dialog results: " + value);
-            }
-            else
-            {
-
-                MessageBox.Show("All fields should be filled");
-                form.ShowDialog();
-            } 
+            value = textBox1.Text;
+            value = value + ", " + textBox2.Text;
+            Console.Out.WriteLine("Dialog results: " + value);
             return dialogResult;
 
         }
