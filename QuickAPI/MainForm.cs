@@ -71,35 +71,69 @@ namespace QuickAPI
         public static DialogResult InputBox(string title, string promptText, string value)
         {
             Form form = new Form();
-            Label label = new Label();
-            TextBox textBox1 = new TextBox();
+            Label label1 = new Label();
+            Label label2 = new Label();
+            Label label3 = new Label();
+            Label label4 = new Label();
+            Label label5 = new Label();
 
-            textBox1.Width = 50;
+            TextBox textBox1 = new TextBox();
+            TextBox textBox2 = new TextBox();
+            TextBox textBox3 = new TextBox();
+            TextBox textBox4 = new TextBox();
+            TextBox textBox5 = new TextBox();
+
             Button buttonSave = new Button();
             Button buttonCancel = new Button();
 
             form.Text = title;
-            label.Text = promptText;
+            label1.Text = "Product SKU";
+            label2.Text = "Product Name";
+            label3.Text = "Customer First Name";
+            label4.Text = "Customer Last Name";
+            label5.Text = "Warehouse Name";
+
             textBox1.Text = value;
+            textBox2.Text = "Product Name value";
+            textBox3.Text = "First Name value";
+            textBox4.Text = "Last Name value";
+            textBox5.Text = "Warehouse Name value";
 
             buttonSave.Text = "Save";
             buttonCancel.Text = "Cancel";
             buttonSave.DialogResult = DialogResult.OK;
             buttonCancel.DialogResult = DialogResult.Cancel;
 
-            label.SetBounds(9, 20, 372, 13);
-            textBox1.SetBounds(12, 36, 372, 20);
-            buttonSave.SetBounds(228, 72, 75, 23);
-            buttonCancel.SetBounds(309, 72, 75, 23);
+            label1.SetBounds(10, 10, 100, 22);
+            textBox1.SetBounds(110, 8, 250, 22);
 
-            label.AutoSize = true;
+            label2.SetBounds(10, 40, 100, 22);
+            textBox2.SetBounds(110, 38, 250, 22);
+
+            label3.SetBounds(10, 70, 100, 22);
+            textBox3.SetBounds(110, 68, 250, 22);
+
+            label4.SetBounds(10, 100, 100, 22);
+            textBox4.SetBounds(110, 98, 250, 22);
+
+            label5.SetBounds(10, 130, 100, 22);
+            textBox5.SetBounds(110, 128, 250, 22);
+
+            buttonSave.SetBounds(180, 160, 75, 23);
+            buttonCancel.SetBounds(260, 160, 75, 23);
+
             textBox1.Anchor = textBox1.Anchor | AnchorStyles.Right;
+            textBox2.Anchor = textBox2.Anchor | AnchorStyles.Right;
+            textBox3.Anchor = textBox3.Anchor | AnchorStyles.Right;
+            textBox4.Anchor = textBox4.Anchor | AnchorStyles.Right;
+            textBox5.Anchor = textBox5.Anchor | AnchorStyles.Right;
+
             buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
-            form.ClientSize = new Size(396, 107);
-            form.Controls.AddRange(new Control[] { label, textBox1, buttonSave, buttonCancel });
-            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
+            form.ClientSize = new Size(370, 200);
+            form.Controls.AddRange(new Control[] { label1, label2, label3, label4, label5, textBox1, textBox2, textBox3, textBox4, textBox5, buttonSave, buttonCancel });
+            form.ClientSize = new Size(Math.Max(300, label1.Right + 10), form.ClientSize.Height);
             form.FormBorderStyle = FormBorderStyle.FixedDialog;
             form.StartPosition = FormStartPosition.CenterScreen;
             form.MinimizeBox = false;
@@ -108,30 +142,23 @@ namespace QuickAPI
             form.CancelButton = buttonCancel;
 
             DialogResult dialogResult = form.ShowDialog();
-            value = textBox1.Text;
-            Console.Out.WriteLine("Dialog results: " + value);
+
+            if (textBox1.Text == "" && textBox2.Text == "" && textBox3.Text == "" && textBox4.Text == "" && textBox5.Text != "")
+            {
+                value = textBox1.Text;
+                value = value + ", " + textBox2.Text;
+                Console.Out.WriteLine("Dialog results: " + value);
+            }
+            else
+            {
+
+                MessageBox.Show("All fields should be filled");
+                form.ShowDialog();
+            } 
             return dialogResult;
-        }
-/*
-        public static string DialogCombo(string text, DataTable comboSource, string DisplyMember, string ValueMember)
-        {
-            //comboSource = new DataTable();
 
-            Form prompt = new Form();
-            prompt.Width = 500;
-            prompt.Height = 200;
-            Label textLabel = new Label() { Left = 350, Top = 20, Text = text };
-            TextBox textBox = new TextBox { Left = 50, Top = 50, Width = 400 };
-            Button confirmation = new Button() { Text = "Confirm", Left = 350, Width = 100, Top = 70 };
-            confirmation.Click += (sender, e) => { prompt.Close(); };
-            prompt.Controls.Add(confirmation);
-            prompt.Controls.Add(textLabel);
-            prompt.Controls.Add(textBox);
-            prompt.ShowDialog();
-
-            return textBox.Text;
         }
-        */
+
         private void entityTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
            if(eventLabel.Text.Contains(" "))
@@ -169,8 +196,7 @@ namespace QuickAPI
 
         private void defaultNamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //DialogCombo("text", new DataTable(), "DisplyMember", "ValueMember");
-            InputBox("Custom Names", "promptText", "value");
+            InputBox("Custom Default Names", "Product SKU", "Product SKU value");
         }
     }
 }
