@@ -68,6 +68,70 @@ namespace QuickAPI
             Application.Exit();
         }
 
+        public static DialogResult InputBox(string title, string promptText, string value)
+        {
+            Form form = new Form();
+            Label label = new Label();
+            TextBox textBox1 = new TextBox();
+
+            textBox1.Width = 50;
+            Button buttonSave = new Button();
+            Button buttonCancel = new Button();
+
+            form.Text = title;
+            label.Text = promptText;
+            textBox1.Text = value;
+
+            buttonSave.Text = "Save";
+            buttonCancel.Text = "Cancel";
+            buttonSave.DialogResult = DialogResult.OK;
+            buttonCancel.DialogResult = DialogResult.Cancel;
+
+            label.SetBounds(9, 20, 372, 13);
+            textBox1.SetBounds(12, 36, 372, 20);
+            buttonSave.SetBounds(228, 72, 75, 23);
+            buttonCancel.SetBounds(309, 72, 75, 23);
+
+            label.AutoSize = true;
+            textBox1.Anchor = textBox1.Anchor | AnchorStyles.Right;
+            buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
+            form.ClientSize = new Size(396, 107);
+            form.Controls.AddRange(new Control[] { label, textBox1, buttonSave, buttonCancel });
+            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.MinimizeBox = false;
+            form.MaximizeBox = false;
+            form.AcceptButton = buttonSave;
+            form.CancelButton = buttonCancel;
+
+            DialogResult dialogResult = form.ShowDialog();
+            value = textBox1.Text;
+            Console.Out.WriteLine("Dialog results: " + value);
+            return dialogResult;
+        }
+/*
+        public static string DialogCombo(string text, DataTable comboSource, string DisplyMember, string ValueMember)
+        {
+            //comboSource = new DataTable();
+
+            Form prompt = new Form();
+            prompt.Width = 500;
+            prompt.Height = 200;
+            Label textLabel = new Label() { Left = 350, Top = 20, Text = text };
+            TextBox textBox = new TextBox { Left = 50, Top = 50, Width = 400 };
+            Button confirmation = new Button() { Text = "Confirm", Left = 350, Width = 100, Top = 70 };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.Controls.Add(textBox);
+            prompt.ShowDialog();
+
+            return textBox.Text;
+        }
+        */
         private void entityTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
            if(eventLabel.Text.Contains(" "))
@@ -96,6 +160,17 @@ namespace QuickAPI
             this.Hide();
             getTokenForm.Show();
             TokenReceiver.ApiToken = null;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void defaultNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //DialogCombo("text", new DataTable(), "DisplyMember", "ValueMember");
+            InputBox("Custom Names", "promptText", "value");
         }
     }
 }

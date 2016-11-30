@@ -141,8 +141,7 @@ namespace QuickAPI
                 StreamReader responseReader = new StreamReader(webStream);
                 response = responseReader.ReadToEnd();
                 Console.Out.WriteLine("----Response(try): " + response);
-                ApiToken = response.Replace("{\"token\":\"", "");
-                ApiToken = ApiToken.Replace("\"}", "");
+                ApiToken = response.Replace("{\"token\":\"", "").Replace("\"}", "");
                 responseReader.Close();
                 if (!url.Contains("auth"))
                 {

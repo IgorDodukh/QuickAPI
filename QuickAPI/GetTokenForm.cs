@@ -17,8 +17,8 @@ namespace QuickAPI
         public static string selectedEnvironmentLink;
         public static string selectedEnvironmentKey;
         private static QuickAPIMain quickAPIMain = new QuickAPIMain();
-        private Color farbe;
-        string placeholderText = "https://apiqa03.freestylecommerce.info/V2";
+//        private Color farbe;
+//        string placeholderText = "https://apiqa03.freestylecommerce.info/V2";
 
         public GetTokenForm()
         {
