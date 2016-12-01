@@ -61,11 +61,19 @@ namespace QuickAPI
             eventLabel.Text = requestValue + " " + entityValue;
 
             environmentLabel.Text = GetTokenForm.selectedEnvironmentKey;
+
+            ParametersReader.fileReader();
         }
 
         private void QuickAPIMain_FormClosing(Object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private static void textBox_TextChanged(object sender, EventHandler e)
+        {
+            Console.Out.WriteLine("--sender: " + sender);
+            Console.Out.WriteLine("--EventArgs: " + e);
         }
 
         public static DialogResult InputBox(string title, string promptText, string value)
@@ -148,6 +156,8 @@ namespace QuickAPI
             return dialogResult;
 
         }
+
+
 
         private void entityTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {

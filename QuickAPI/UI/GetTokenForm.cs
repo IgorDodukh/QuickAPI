@@ -113,7 +113,6 @@ namespace QuickAPI
                 selectedEnvironmentKey = "Custom";
             }
             
-
             if (warningMessage == "")
             {
                 login = textBox2.Text;
@@ -128,7 +127,7 @@ namespace QuickAPI
                     quickAPIMain.Show();
                 }
                 //TODO: add different messages for different returned status numbers
-                else MessageBox.Show("API token was not received. Please check your credentials.");
+                else Console.Out.WriteLine("API token was not received. Please check your input parameters.");
             }
             else MessageBox.Show(warningMessage);
         }
