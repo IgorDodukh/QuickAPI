@@ -53,6 +53,12 @@ namespace QuickAPI
         private static void UpdateJson()
         {
             json = json.Replace("xxxxx", RandomString(5));
+            json = json.Replace("PRODPRODSKU", QuickAPIMain.productSKUValue);
+            json = json.Replace("PRODPRODNAME", QuickAPIMain.productNameValue);
+            json = json.Replace("FIRSTNAME", QuickAPIMain.firstNameValue);
+            json = json.Replace("LASTNAME", QuickAPIMain.lastNameValue);
+            json = json.Replace("WHWHNAME", QuickAPIMain.warehouseNameValue);
+
         }
         public static void SendJson()
         {
@@ -81,6 +87,8 @@ namespace QuickAPI
                     client.Headers[HttpRequestHeader.ContentType] = "application/json";
                     result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex], json);
                 }
+                Console.WriteLine("--result: " + result);
+                Console.WriteLine("--result JSON: " + json);
                 url = url.Trim('/').TrimEnd('s');
                 MessageBox.Show("Request completed.\nNew " + url + " has been created.");
             }

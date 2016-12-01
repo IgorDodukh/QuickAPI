@@ -43,7 +43,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.systemVariablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -213,8 +212,7 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.defaultNamesToolStripMenuItem,
-            this.systemVariablesToolStripMenuItem});
+            this.defaultNamesToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -222,15 +220,9 @@
             // defaultNamesToolStripMenuItem
             // 
             this.defaultNamesToolStripMenuItem.Name = "defaultNamesToolStripMenuItem";
-            this.defaultNamesToolStripMenuItem.Size = new System.Drawing.Size(195, 26);
+            this.defaultNamesToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
             this.defaultNamesToolStripMenuItem.Text = "Default Names";
             this.defaultNamesToolStripMenuItem.Click += new System.EventHandler(this.defaultNamesToolStripMenuItem_Click);
-            // 
-            // systemVariablesToolStripMenuItem
-            // 
-            this.systemVariablesToolStripMenuItem.Name = "systemVariablesToolStripMenuItem";
-            this.systemVariablesToolStripMenuItem.Size = new System.Drawing.Size(195, 26);
-            this.systemVariablesToolStripMenuItem.Text = "System Variables";
             // 
             // exitToolStripMenuItem
             // 
@@ -286,6 +278,5 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultNamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem systemVariablesToolStripMenuItem;
     }
 }

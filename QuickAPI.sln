@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickAPI", "QuickAPI\QuickAPI.csproj", "{BB448808-467D-4FF3-9520-95ED7CEE5413}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup3", "Setup3\Setup3.vdproj", "{5FD50B9E-14F1-4057-8DEE-E8CCD79AB23C}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "QuickAPI installer", "QuickAPI installer\QuickAPI installer.vdproj", "{2B04ABF6-F254-4595-B318-B6359D76E099}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{BB448808-467D-4FF3-9520-95ED7CEE5413}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB448808-467D-4FF3-9520-95ED7CEE5413}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB448808-467D-4FF3-9520-95ED7CEE5413}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FD50B9E-14F1-4057-8DEE-E8CCD79AB23C}.Debug|Any CPU.ActiveCfg = Debug
-		{5FD50B9E-14F1-4057-8DEE-E8CCD79AB23C}.Release|Any CPU.ActiveCfg = Release
+		{2B04ABF6-F254-4595-B318-B6359D76E099}.Debug|Any CPU.ActiveCfg = Debug
+		{2B04ABF6-F254-4595-B318-B6359D76E099}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

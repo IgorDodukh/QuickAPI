@@ -13,6 +13,20 @@ namespace QuickAPI
     public partial class QuickAPIMain : Form
     {
         private static GetTokenForm getTokenForm = new GetTokenForm();
+
+        public static string productSKUValue;
+        public static string productNameValue;
+        public static string firstNameValue;
+        public static string lastNameValue;
+        public static string warehouseNameValue;
+
+        public static string newProductSKUValue;
+        public static string newProductNameValue;
+        public static string newFirstNameValue;
+        public static string newLastNameValue;
+        public static string newWarehouseNameValue;
+
+
         public QuickAPIMain()
         {
             InitializeComponent();
@@ -21,6 +35,7 @@ namespace QuickAPI
 
         private void sendButton_Click(object sender, EventArgs e)
         {
+            ParametersReader.fileReader();
             TokenReceiver.requestTypeIndex = requestTypeComboBox.SelectedIndex;
             TokenReceiver.entityTypeIndex = entityTypeComboBox.SelectedIndex;
             /*
@@ -34,6 +49,8 @@ namespace QuickAPI
 
         private void QuickAPIMain_Load(object sender, EventArgs e)
         {
+            ParametersReader.fileReader();
+
             Dictionary<string, string> entityTypes = new Dictionary<string, string>();
             entityTypes.Add("Product", "Products");
             entityTypes.Add("Warehouse", "Warehouses");
@@ -61,8 +78,6 @@ namespace QuickAPI
             eventLabel.Text = requestValue + " " + entityValue;
 
             environmentLabel.Text = GetTokenForm.selectedEnvironmentKey;
-
-            ParametersReader.fileReader();
         }
 
         private void QuickAPIMain_FormClosing(Object sender, FormClosingEventArgs e)
@@ -70,14 +85,10 @@ namespace QuickAPI
             Application.Exit();
         }
 
-        private static void textBox_TextChanged(object sender, EventHandler e)
+        public static DialogResult DefaultNamesInputBox()
         {
-            Console.Out.WriteLine("--sender: " + sender);
-            Console.Out.WriteLine("--EventArgs: " + e);
-        }
+            ParametersReader.fileReader();
 
-        public static DialogResult InputBox(string title, string promptText, string value)
-        {
             Form form = new Form();
             Label label1 = new Label();
             Label label2 = new Label();
@@ -94,18 +105,18 @@ namespace QuickAPI
             Button buttonSave = new Button();
             Button buttonCancel = new Button();
 
-            form.Text = title;
+            form.Text = "Custom Default Names";
             label1.Text = "Product SKU";
             label2.Text = "Product Name";
             label3.Text = "Customer First Name";
             label4.Text = "Customer Last Name";
             label5.Text = "Warehouse Name";
 
-            textBox1.Text = value;
-            textBox2.Text = "Product Name value";
-            textBox3.Text = "First Name value";
-            textBox4.Text = "Last Name value";
-            textBox5.Text = "Warehouse Name value";
+            textBox1.Text = productSKUValue;
+            textBox2.Text = productNameValue;
+            textBox3.Text = firstNameValue;
+            textBox4.Text = lastNameValue;
+            textBox5.Text = warehouseNameValue;
 
             buttonSave.Text = "Save";
             buttonCancel.Text = "Cancel";
@@ -150,9 +161,17 @@ namespace QuickAPI
             form.CancelButton = buttonCancel;
 
             DialogResult dialogResult = form.ShowDialog();
-            value = textBox1.Text;
-            value = value + ", " + textBox2.Text;
-            Console.Out.WriteLine("Dialog results: " + value);
+            if (dialogResult == DialogResult.OK)
+            {
+                newProductSKUValue = textBox1.Text;
+                newProductNameValue = textBox2.Text;
+                newFirstNameValue = textBox3.Text;
+                newLastNameValue = textBox4.Text;
+                newWarehouseNameValue = textBox5.Text;
+                ParametersReader.fileWriter();
+            }
+            else Console.Out.WriteLine("Dialog cancelled");
+
             return dialogResult;
 
         }
@@ -196,7 +215,7 @@ namespace QuickAPI
 
         private void defaultNamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InputBox("Custom Default Names", "Product SKU", "Product SKU value");
+            DefaultNamesInputBox();
         }
     }
 }
