@@ -89,7 +89,6 @@ namespace QuickAPI
                 Console.WriteLine(result);
                 MessageBox.Show("Request failed:\n" + e.Message + "\n" + result);
             }
-
         }
 
         public static void CreateObject(string login, string password)
@@ -128,7 +127,7 @@ namespace QuickAPI
             request.Method = requestsList[requestTypeIndex];
             request.ContentType = "application/json";
             request.ContentLength = DATA.Length;
-
+            
             try
             {
                 StreamWriter requestWriter = new StreamWriter(request.GetRequestStream(), System.Text.Encoding.ASCII);
@@ -136,6 +135,7 @@ namespace QuickAPI
 
                 requestWriter.Write(DATA);
                 requestWriter.Close();
+
                 WebResponse webResponse = request.GetResponse();
                 Stream webStream = webResponse.GetResponseStream();
                 StreamReader responseReader = new StreamReader(webStream);
