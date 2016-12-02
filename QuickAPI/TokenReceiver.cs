@@ -21,9 +21,6 @@ namespace QuickAPI
         private static string url;
         private static string randomNumber;
         private static string entityName;
-        private static string tempFirstName;
-        private static string tempLastName;
-
 
         private static string RandomString(int Size)
         {
@@ -57,14 +54,12 @@ namespace QuickAPI
 
         private static void UpdateJson()
         {
-            randomNumber = RandomString(5);
-            json = json.Replace("xxxxx", randomNumber);
+            json = json.Replace("xxxxx", RandomString(5));
             json = json.Replace("PRODPRODSKU", QuickAPIMain.productSKUValue);
             json = json.Replace("PRODPRODNAME", QuickAPIMain.productNameValue);
             json = json.Replace("FIRSTFIRSTNAME", QuickAPIMain.firstNameValue);
             json = json.Replace("LASTLASTNAME", QuickAPIMain.lastNameValue);
             json = json.Replace("WHWHNAME", QuickAPIMain.warehouseNameValue);
-
         }
 
         private static void GetEntityName1(string json)

@@ -35,7 +35,7 @@ namespace QuickAPI
 
         private void sendButton_Click(object sender, EventArgs e)
         {
-            ParametersReader.fileReader();
+            ParametersReader.ReadDefaultNames();
             RequestsHandler.requestTypeIndex = requestTypeComboBox.SelectedIndex;
             RequestsHandler.entityTypeIndex = entityTypeComboBox.SelectedIndex;
             /*
@@ -49,7 +49,7 @@ namespace QuickAPI
 
         private void QuickAPIMain_Load(object sender, EventArgs e)
         {
-            ParametersReader.fileReader();
+            ParametersReader.ReadDefaultNames();
 
             Dictionary<string, string> entityTypes = new Dictionary<string, string>();
             entityTypes.Add("Product", "Products");
@@ -87,7 +87,7 @@ namespace QuickAPI
 
         public static DialogResult DefaultNamesInputBox()
         {
-            ParametersReader.fileReader();
+            ParametersReader.ReadDefaultNames();
 
             Form form = new Form();
             Label label1 = new Label();
@@ -123,20 +123,20 @@ namespace QuickAPI
             buttonSave.DialogResult = DialogResult.OK;
             buttonCancel.DialogResult = DialogResult.Cancel;
 
-            label1.SetBounds(10, 10, 100, 22);
-            textBox1.SetBounds(110, 8, 250, 22);
+            label1.SetBounds(10, 10, 110, 22);
+            textBox1.SetBounds(120, 8, 250, 22);
 
-            label2.SetBounds(10, 40, 100, 22);
-            textBox2.SetBounds(110, 38, 250, 22);
+            label2.SetBounds(10, 40, 110, 22);
+            textBox2.SetBounds(120, 38, 250, 22);
 
-            label3.SetBounds(10, 70, 100, 22);
-            textBox3.SetBounds(110, 68, 250, 22);
+            label3.SetBounds(10, 70, 110, 22);
+            textBox3.SetBounds(120, 68, 250, 22);
 
-            label4.SetBounds(10, 100, 100, 22);
-            textBox4.SetBounds(110, 98, 250, 22);
+            label4.SetBounds(10, 100, 110, 22);
+            textBox4.SetBounds(120, 98, 250, 22);
 
-            label5.SetBounds(10, 130, 100, 22);
-            textBox5.SetBounds(110, 128, 250, 22);
+            label5.SetBounds(10, 130, 110, 22);
+            textBox5.SetBounds(120, 128, 250, 22);
 
             buttonSave.SetBounds(180, 160, 75, 23);
             buttonCancel.SetBounds(260, 160, 75, 23);
@@ -150,7 +150,7 @@ namespace QuickAPI
             buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
-            form.ClientSize = new Size(370, 200);
+            form.ClientSize = new Size(380, 200);
             form.Controls.AddRange(new Control[] { label1, label2, label3, label4, label5, textBox1, textBox2, textBox3, textBox4, textBox5, buttonSave, buttonCancel });
             form.ClientSize = new Size(Math.Max(300, label1.Right + 10), form.ClientSize.Height);
             form.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -168,7 +168,7 @@ namespace QuickAPI
                 newFirstNameValue = textBox3.Text;
                 newLastNameValue = textBox4.Text;
                 newWarehouseNameValue = textBox5.Text;
-                ParametersReader.fileWriter();
+                ParametersReader.UpdateDefaultNames();
             }
             else Console.Out.WriteLine("Dialog cancelled");
 
