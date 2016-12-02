@@ -36,14 +36,14 @@ namespace QuickAPI
         private void sendButton_Click(object sender, EventArgs e)
         {
             ParametersReader.fileReader();
-            TokenReceiver.requestTypeIndex = requestTypeComboBox.SelectedIndex;
-            TokenReceiver.entityTypeIndex = entityTypeComboBox.SelectedIndex;
+            RequestsHandler.requestTypeIndex = requestTypeComboBox.SelectedIndex;
+            RequestsHandler.entityTypeIndex = entityTypeComboBox.SelectedIndex;
             /*
             string login = null;
             string password = null;
             TokenReceiver.CreateObject(login, password);*/
 
-            TokenReceiver.SendJson();
+            RequestsHandler.SendJson();
 
         }
 
@@ -205,7 +205,7 @@ namespace QuickAPI
         {
             this.Hide();
             getTokenForm.Show();
-            TokenReceiver.ApiToken = null;
+            RequestsHandler.ApiToken = null;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

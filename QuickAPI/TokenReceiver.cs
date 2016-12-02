@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace QuickAPI
 {
 
-    public class TokenReceiver : GetTokenForm
+    public class RequestsHandler : GetTokenForm
     {
         public static int requestTypeIndex;
         public static int entityTypeIndex;
@@ -19,6 +19,11 @@ namespace QuickAPI
         private static string json;
         private static string response;
         private static string url;
+        private static string randomNumber;
+        private static string entityName;
+        private static string tempFirstName;
+        private static string tempLastName;
+
 
         private static string RandomString(int Size)
         {
@@ -52,16 +57,47 @@ namespace QuickAPI
 
         private static void UpdateJson()
         {
-            json = json.Replace("xxxxx", RandomString(5));
+            randomNumber = RandomString(5);
+            json = json.Replace("xxxxx", randomNumber);
             json = json.Replace("PRODPRODSKU", QuickAPIMain.productSKUValue);
             json = json.Replace("PRODPRODNAME", QuickAPIMain.productNameValue);
-            json = json.Replace("FIRSTNAME", QuickAPIMain.firstNameValue);
-            json = json.Replace("LASTNAME", QuickAPIMain.lastNameValue);
+            json = json.Replace("FIRSTFIRSTNAME", QuickAPIMain.firstNameValue);
+            json = json.Replace("LASTLASTNAME", QuickAPIMain.lastNameValue);
             json = json.Replace("WHWHNAME", QuickAPIMain.warehouseNameValue);
 
         }
+
+        private static void GetEntityName1(string json)
+        {
+            int firstCharIndex;
+            string firstNameTemp;
+            string lastNameTemp;
+
+            if (json.Contains("ProductSku"))
+                entityName = json.Remove(0, 20);
+            else if (json.Contains("WarehouseName"))
+                entityName = json.Remove(0, 23);
+            else if (json.Contains("Salutation"))
+            {
+                firstNameTemp = json.Remove(0, 77);
+                firstCharIndex = firstNameTemp.IndexOf("\"");
+                firstNameTemp = firstNameTemp.Remove(firstCharIndex, firstNameTemp.Length - firstCharIndex);
+
+                lastNameTemp = json.Remove(0, 40);
+                firstCharIndex = lastNameTemp.IndexOf("\"");
+                lastNameTemp = lastNameTemp.Remove(firstCharIndex, lastNameTemp.Length - firstCharIndex);
+
+                entityName = firstNameTemp + " " + lastNameTemp;
+            }
+            firstCharIndex = entityName.IndexOf("\"");
+            if (firstCharIndex >= 0)
+                entityName = entityName.Remove(firstCharIndex, entityName.Length - firstCharIndex);
+        }
+
         public static void SendJson()
         {
+            string result = "";
+
             List<String> recourcesList = new List<String>();
             recourcesList.Add("/auth");
             recourcesList.Add("/products");
@@ -73,24 +109,23 @@ namespace QuickAPI
             requestsList.Add("PUT");
             requestsList.Add("DELETE");
 
-            string result = "";
             try
             {
                 LoadJson();
                 UpdateJson();
+                GetEntityName1(json);
 
                 using (var client = new WebClient())
-                {
-                    url = recourcesList[entityTypeIndex + 1];
-                    client.Headers.Add("x-freestyle-api-auth", ApiToken);
+                    {
+                        url = recourcesList[entityTypeIndex + 1];
+                        client.Headers.Add("x-freestyle-api-auth", ApiToken);
 
-                    client.Headers[HttpRequestHeader.ContentType] = "application/json";
-                    result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex], json);
-                }
-                Console.WriteLine("--result: " + result);
-                Console.WriteLine("--result JSON: " + json);
+                        client.Headers[HttpRequestHeader.ContentType] = "application/json";
+                        result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex], json);
+                    }
+                
                 url = url.Trim('/').TrimEnd('s');
-                MessageBox.Show("Request completed.\nNew " + url + " has been created.");
+                MessageBox.Show("Request completed.\nNew " + url + " '" + entityName + "' has been created.");
             }
             catch (Exception e)
             {

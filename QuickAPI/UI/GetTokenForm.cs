@@ -120,8 +120,8 @@ namespace QuickAPI
                 Console.Out.WriteLine("---login: " + login);
                 Console.Out.WriteLine("---password: " + password);
 
-                TokenReceiver.CreateObject(login, password);
-                if (TokenReceiver.ApiToken != null)
+                RequestsHandler.CreateObject(login, password);
+                if (RequestsHandler.ApiToken != null)
                 {
                     this.Hide();
                     quickAPIMain.Show();
