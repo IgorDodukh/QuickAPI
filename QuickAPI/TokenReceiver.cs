@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace QuickAPI
 {
@@ -142,23 +143,83 @@ namespace QuickAPI
                         int index;
                         string returnedItemName = "";
                         string namesList = "";
+                        string matchesName = "";
+                        int addingIndex = 0;
 
-                        var matches = Regex.Matches(returnedBody, "\"Name\"");
+                        Form form = new Form();
+                        TextBox textBox1 = new TextBox();
+                        Label label1 = new Label();
+                        Label label2 = new Label();
+                        Button button1 = new Button();
+
+                        textBox1.Multiline = true;
+                        textBox1.Height = 250;
+                        textBox1.Width = 200;
+                        textBox1.ReadOnly = true;
+                        textBox1.ScrollBars = ScrollBars.Vertical;
+                        textBox1.Clear();
+                        textBox1.Anchor = textBox1.Anchor | AnchorStyles.Right;
+
+                        button1.Text = "OK";
+                        button1.DialogResult = DialogResult.OK;
+
+                        label1.SetBounds(10, 10, 250, 15);
+                        label2.SetBounds(10, 35, 250, 15);
+                        textBox1.SetBounds(10, 60, 220, 200);
+                        button1.SetBounds(125, 270, 75, 23);
+
+                        form.ClientSize = new Size(240, 300);
+                        form.Text = "Found elements list";
+                        form.BackColor = System.Drawing.Color.White;
+                        form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                        form.StartPosition = FormStartPosition.CenterScreen;
+                        form.MinimizeBox = false;
+                        form.MaximizeBox = false;
+                        form.AcceptButton = button1;
+                        form.Controls.AddRange(new Control[] { label1, label2, textBox1, button1});
+
+
+                        List<String> matchesNamesList = new List<String>();
+                        matchesNamesList.Add("/products");
+                        matchesNamesList.Add("\"WarehouseName\"");
+                        matchesNamesList.Add("/customers");
+                        matchesNamesList.Add("\"Name\"");
+
+                        matchesName = matchesNamesList[entityTypeIndex];
+
+                        if (url.Contains("warehouses"))
+                        {
+                            addingIndex = 17;
+                        }
+                        else if (url.Contains("ShippingMethods"))
+                        {
+                            addingIndex = 8;
+                        }
+                        StringBuilder sb = new StringBuilder();
+
+                        var matches = Regex.Matches(returnedBody, matchesName);
                         foreach (var m in matches)
                         {
                             index = returnedBody.IndexOf(m.ToString());
-                            returnedItemName = returnedBody.Remove(0, index+8);
+                            returnedItemName = returnedBody.Remove(0, index + addingIndex);
                             firstCharIndex = returnedItemName.IndexOf("\"");
                             if (firstCharIndex >= 0)
                                 returnedItemName = returnedItemName.Remove(firstCharIndex, returnedItemName.Length - firstCharIndex);
                             namesList += returnedItemName + "\n";
+
+                            sb.AppendLine(returnedItemName);
 
                             returnedBody = returnedBody.Remove(0, returnedBody.IndexOf(returnedItemName) + returnedItemName.Length);
                             Console.WriteLine(firstCharIndex);
                             Console.WriteLine(returnedItemName);
                         }
                         url = url.Trim('/').TrimEnd('s');
-                        MessageBox.Show("Request completed.\nA list of " + url + "s has been returned\n(" + matches.Count + " elements found):\n\n" + namesList);
+
+                        label1.Text = "Request completed (" + matches.Count + " elements found)";
+                        label2.Text = "A list of " + url + "s has been returned";
+                        textBox1.Text += sb.ToString();
+                        form.ShowDialog();
+//                        MessageBox.Show("Request completed.\nA list of " + url + "s has been returned\n(" + matches.Count + " elements found):\n\n" + namesList);
                     }
                 }
 
