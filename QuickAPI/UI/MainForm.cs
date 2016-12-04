@@ -59,15 +59,16 @@ namespace QuickAPI
             entityTypeComboBox.SelectedIndex = 0;
 
             Dictionary<string, string> requestTypes = new Dictionary<string, string>();
-//            requestTypes.Add("GET", "View");
+            requestTypes.Add("GET", "View");
             requestTypes.Add("POST", "Create");
             requestTypes.Add("PUT", "Update");
             requestTypes.Add("DELETE", "Remove");
 
+
             requestTypeComboBox.DataSource = new BindingSource(requestTypes, null);
             requestTypeComboBox.DisplayMember = "Key";
             requestTypeComboBox.ValueMember = "Value";
-            requestTypeComboBox.SelectedIndex = 0;
+            requestTypeComboBox.SelectedIndex = 1;
 
             string requestValue = ((KeyValuePair<string, string>)requestTypeComboBox.SelectedItem).Value;
             string entityValue = ((KeyValuePair<string, string>)entityTypeComboBox.SelectedItem).Key;
@@ -181,10 +182,7 @@ namespace QuickAPI
             else Console.Out.WriteLine("Dialog cancelled");
 
             return dialogResult;
-
         }
-
-
 
         private void entityTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -194,6 +192,15 @@ namespace QuickAPI
                 string value = eventLabel.Text;
                 value = value.Remove(value.IndexOf(" "), value.Length - value.IndexOf(" "));
                 eventLabel.Text = value + " " + entityValue;
+
+                if (entityValue.Contains("Shipping")){
+                    label5.Visible = true;
+                    label6.Visible = true;
+                } else
+                {
+                    label5.Visible = false;
+                    label6.Visible = false;
+                }
             }
         }
 

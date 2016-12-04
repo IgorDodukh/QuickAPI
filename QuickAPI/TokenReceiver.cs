@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace QuickAPI
 {
@@ -104,6 +105,7 @@ namespace QuickAPI
             recourcesList.Add("/ShippingMethods");
 
             List<String> requestsList = new List<String>();
+            requestsList.Add("GET");
             requestsList.Add("POST");
             requestsList.Add("PUT");
             requestsList.Add("DELETE");
@@ -114,17 +116,52 @@ namespace QuickAPI
                 UpdateJson();
                 GetEntityName(json);
 
-                using (var client = new WebClient())
-                    {
-                        url = recourcesList[entityTypeIndex + 1];
-                        client.Headers.Add("x-freestyle-api-auth", ApiToken);
+                url = recourcesList[entityTypeIndex + 1];
 
+                using (var client = new WebClient())
+                {
+                    client.Headers.Add("x-freestyle-api-auth", ApiToken);
+
+                    if (requestsList[requestTypeIndex] == "POST")
+                    {
                         client.Headers[HttpRequestHeader.ContentType] = "application/json";
                         result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex], json);
+                        url = url.Trim('/').TrimEnd('s');
+                        MessageBox.Show("Request completed.\nNew " + url + " '" + entityName + "' has been created.");
                     }
-                
-                url = url.Trim('/').TrimEnd('s');
-                MessageBox.Show("Request completed.\nNew " + url + " '" + entityName + "' has been created.");
+                    else if (requestsList[requestTypeIndex] == "GET")
+                    {
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(selectedEnvironmentLink + url);
+                        request.Headers.Add("x-freestyle-api-auth", ApiToken);
+                        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                        Stream resStream = response.GetResponseStream();
+                        StreamReader readStream = new StreamReader(resStream, Encoding.UTF8);
+                        string returnedBody = readStream.ReadToEnd();
+
+                        int firstCharIndex;
+                        int index;
+                        string returnedItemName = "";
+                        string namesList = "";
+
+                        var matches = Regex.Matches(returnedBody, "\"Name\"");
+                        foreach (var m in matches)
+                        {
+                            index = returnedBody.IndexOf(m.ToString());
+                            returnedItemName = returnedBody.Remove(0, index+8);
+                            firstCharIndex = returnedItemName.IndexOf("\"");
+                            if (firstCharIndex >= 0)
+                                returnedItemName = returnedItemName.Remove(firstCharIndex, returnedItemName.Length - firstCharIndex);
+                            namesList += returnedItemName + "\n";
+
+                            returnedBody = returnedBody.Remove(0, returnedBody.IndexOf(returnedItemName) + returnedItemName.Length);
+                            Console.WriteLine(firstCharIndex);
+                            Console.WriteLine(returnedItemName);
+                        }
+                        url = url.Trim('/').TrimEnd('s');
+                        MessageBox.Show("Request completed.\nA list of " + url + "s has been returned\n(" + matches.Count + " elements found):\n\n" + namesList);
+                    }
+                }
+
             }
             catch (Exception e)
             {

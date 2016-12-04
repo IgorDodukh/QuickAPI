@@ -44,6 +44,8 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -51,6 +53,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.entityTypeComboBox);
             this.groupBox1.Controls.Add(this.requestTypeComboBox);
             this.groupBox1.Controls.Add(this.label2);
@@ -112,7 +116,7 @@
             this.sendButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sendButton.ForeColor = System.Drawing.Color.White;
-            this.sendButton.Location = new System.Drawing.Point(100, 319);
+            this.sendButton.Location = new System.Drawing.Point(100, 305);
             this.sendButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(208, 34);
@@ -185,7 +189,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.environmentLabel);
             this.groupBox2.Controls.Add(this.eventLabel);
-            this.groupBox2.Location = new System.Drawing.Point(29, 205);
+            this.groupBox2.Location = new System.Drawing.Point(29, 191);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -231,12 +235,36 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label5.Location = new System.Drawing.Point(6, 89);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(118, 17);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Shipping Service:";
+            this.label5.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label6.Location = new System.Drawing.Point(152, 89);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(88, 17);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "UPS Ground";
+            this.label6.Visible = false;
+            // 
             // QuickAPIMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(382, 374);
+            this.ClientSize = new System.Drawing.Size(382, 360);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.sendButton);
             this.Controls.Add(this.groupBox1);
@@ -278,5 +306,7 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultNamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
     }
 }
