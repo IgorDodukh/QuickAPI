@@ -19,7 +19,6 @@ namespace QuickAPI
         private static string json;
         private static string response;
         private static string url;
-        private static string randomNumber;
         private static string entityName;
 
         private static string RandomString(int Size)
@@ -43,7 +42,8 @@ namespace QuickAPI
             jsonFilesList.Add("/product.json");
             jsonFilesList.Add("/warehouse.json");
             jsonFilesList.Add("/customer.json");
-
+            jsonFilesList.Add("/shippingMethod.json");
+            
             using (StreamReader r = new StreamReader("json/" + jsonFilesList[entityTypeIndex]))
             {
                 json = r.ReadToEnd();
@@ -60,9 +60,10 @@ namespace QuickAPI
             json = json.Replace("FIRSTFIRSTNAME", QuickAPIMain.firstNameValue);
             json = json.Replace("LASTLASTNAME", QuickAPIMain.lastNameValue);
             json = json.Replace("WHWHNAME", QuickAPIMain.warehouseNameValue);
+            json = json.Replace("SHIPMETHNAME", QuickAPIMain.shippingMethodNameValue);
         }
 
-        private static void GetEntityName1(string json)
+        private static void GetEntityName(string json)
         {
             int firstCharIndex;
             string firstNameTemp;
@@ -72,6 +73,8 @@ namespace QuickAPI
                 entityName = json.Remove(0, 20);
             else if (json.Contains("WarehouseName"))
                 entityName = json.Remove(0, 23);
+            else if (json.Contains("CarrierDescription"))
+                entityName = json.Remove(0, 14);
             else if (json.Contains("Salutation"))
             {
                 firstNameTemp = json.Remove(0, 77);
@@ -98,6 +101,7 @@ namespace QuickAPI
             recourcesList.Add("/products");
             recourcesList.Add("/warehouses");
             recourcesList.Add("/customers");
+            recourcesList.Add("/ShippingMethods");
 
             List<String> requestsList = new List<String>();
             requestsList.Add("POST");
@@ -108,7 +112,7 @@ namespace QuickAPI
             {
                 LoadJson();
                 UpdateJson();
-                GetEntityName1(json);
+                GetEntityName(json);
 
                 using (var client = new WebClient())
                     {

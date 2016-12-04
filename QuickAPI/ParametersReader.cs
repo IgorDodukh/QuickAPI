@@ -29,7 +29,6 @@ namespace QuickAPI
                     {
                         string[] keyAndValue = line.Split(new char[] { '=' });
                         mysettings.Add(keyAndValue[0].Trim(), keyAndValue[1].Trim());
-                        Console.Out.WriteLine("---mysettings: " + mysettings);
                     } catch(IndexOutOfRangeException e)
                     {
                         MessageBox.Show("Reading config file is failed. " + e.Message);
@@ -40,6 +39,7 @@ namespace QuickAPI
                 QuickAPIMain.firstNameValue = mysettings["FIRSTNAME"];
                 QuickAPIMain.lastNameValue = mysettings["LASTNAME"];
                 QuickAPIMain.warehouseNameValue = mysettings["WAREHOUSENAME"];
+                QuickAPIMain.shippingMethodNameValue = mysettings["SHIPMETHNAME"];
             }
         }
 
@@ -62,7 +62,6 @@ namespace QuickAPI
                     {
                         string[] keyAndValue = line.Split(new char[] { '=' });
                         mysettings.Add(keyAndValue[0].Trim(), keyAndValue[1].Trim());
-                        Console.Out.WriteLine("---mysettings: " + mysettings);
                     }
                     catch (IndexOutOfRangeException e)
                     {
@@ -88,8 +87,7 @@ namespace QuickAPI
             contents = contents.Replace(QuickAPIMain.firstNameValue, QuickAPIMain.newFirstNameValue);
             contents = contents.Replace(QuickAPIMain.lastNameValue, QuickAPIMain.newLastNameValue);
             contents = contents.Replace(QuickAPIMain.warehouseNameValue, QuickAPIMain.newWarehouseNameValue);
-            contents = contents.Replace(GetTokenForm.loginValue, GetTokenForm.newLoginValue);
-            contents = contents.Replace(GetTokenForm.passwordValue, GetTokenForm.newPasswordValue);
+            contents = contents.Replace(QuickAPIMain.shippingMethodNameValue, QuickAPIMain.newShippingMethodNameValue);
 
             File.WriteAllText("configs/defaultNames.config", contents);
         }

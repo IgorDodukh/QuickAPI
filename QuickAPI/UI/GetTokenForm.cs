@@ -30,7 +30,6 @@ namespace QuickAPI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ParametersReader.ReadDefaultCredentials();
 
             Dictionary<string, string> environments = new Dictionary<string, string>();
             environments.Add("QA01", "https://apiqa01.freestylecommerce.info/V2");
@@ -43,6 +42,7 @@ namespace QuickAPI
             environmentComboBox.ValueMember = "Value";
             environmentComboBox.SelectedIndex = 3;
 
+            ParametersReader.ReadDefaultCredentials();
             textBox2.Text = loginValue;
             textBox3.Text = passwordValue;
 
