@@ -226,6 +226,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
             this.exitToolStripMenuItem});
+            this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
@@ -236,6 +237,7 @@
             // 
             // settingsToolStripMenuItem
             // 
+            this.settingsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.defaultNamesToolStripMenuItem,
             this.systemVariablesToolStripMenuItem});
@@ -245,13 +247,17 @@
             // 
             // defaultNamesToolStripMenuItem
             // 
+            this.defaultNamesToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.defaultNamesToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.defaultNamesToolStripMenuItem.Name = "defaultNamesToolStripMenuItem";
             this.defaultNamesToolStripMenuItem.Size = new System.Drawing.Size(195, 26);
             this.defaultNamesToolStripMenuItem.Text = "Default Names";
+            this.defaultNamesToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.defaultNamesToolStripMenuItem.Click += new System.EventHandler(this.defaultNamesToolStripMenuItem_Click);
             // 
             // systemVariablesToolStripMenuItem
             // 
+            this.systemVariablesToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.systemVariablesToolStripMenuItem.Name = "systemVariablesToolStripMenuItem";
             this.systemVariablesToolStripMenuItem.Size = new System.Drawing.Size(195, 26);
             this.systemVariablesToolStripMenuItem.Text = "System Variables";
@@ -259,6 +265,7 @@
             // 
             // exitToolStripMenuItem
             // 
+            this.exitToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(45, 24);
             this.exitToolStripMenuItem.Text = "Exit";

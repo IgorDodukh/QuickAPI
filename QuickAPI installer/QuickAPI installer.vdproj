@@ -33,6 +33,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6FCC48FF05404E96828EF809D5612157"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_764FB164F04B41A2A6A1EF4A4E0DCE89"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -142,6 +148,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
     }
@@ -227,6 +241,26 @@
             {
             "SourcePath" = "8:..\\QuickAPI\\bin\\Debug\\configs\\defaultNames.config"
             "TargetName" = "8:defaultNames.config"
+            "Tag" = "8:"
+            "Folder" = "8:_0592C2A4710044CBB54347EFF43E87EC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6FCC48FF05404E96828EF809D5612157"
+            {
+            "SourcePath" = "8:..\\QuickAPI\\bin\\Debug\\configs\\defaultVariables.config"
+            "TargetName" = "8:defaultVariables.config"
             "Tag" = "8:"
             "Folder" = "8:_0592C2A4710044CBB54347EFF43E87EC"
             "Condition" = "8:"
@@ -433,7 +467,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuickAPI"
         "ProductCode" = "8:{6005F62E-A9DA-4F43-921D-1A6B55D31465}"
-        "PackageCode" = "8:{439E4EDD-CFE4-4AC0-914D-BF54E9AB3E43}"
+        "PackageCode" = "8:{38EF24D2-8D23-443C-A344-49AEF857564D}"
         "UpgradeCode" = "8:{DC32F2F5-F3BF-4FB9-802D-486EA55DCD7A}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -968,7 +1002,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9B841C595CDD4900A0BBEA68862C34A7"
             {
-            "SourcePath" = "8:..\\QuickAPI\\obj\\Debug\\QuickAPI.exe"
+            "SourcePath" = "8:..\\QuickAPI\\obj\\Release\\QuickAPI.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_BC33F54721D14227BA8E1ABE39BF70EC"

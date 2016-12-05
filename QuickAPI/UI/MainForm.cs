@@ -45,7 +45,6 @@ namespace QuickAPI
             RequestsHandler.requestTypeIndex = requestTypeComboBox.SelectedIndex;
             RequestsHandler.entityTypeIndex = entityTypeComboBox.SelectedIndex;
             RequestsHandler.SendJson();
-
         }
 
         private void QuickAPIMain_Load(object sender, EventArgs e)
@@ -68,7 +67,6 @@ namespace QuickAPI
             requestTypes.Add("POST", "Create");
             requestTypes.Add("PUT", "Update");
             requestTypes.Add("DELETE", "Remove");
-
 
             requestTypeComboBox.DataSource = new BindingSource(requestTypes, null);
             requestTypeComboBox.DisplayMember = "Key";
@@ -99,7 +97,6 @@ namespace QuickAPI
             Label label4 = new Label();
             Label label5 = new Label();
             Label label6 = new Label();
-
 
             TextBox textBox1 = new TextBox();
             TextBox textBox2 = new TextBox();
@@ -139,7 +136,6 @@ namespace QuickAPI
             buttonCancel.BackColor = Color.FromArgb(255, 53, 53);
             buttonCancel.ForeColor = Color.White;
             buttonCancel.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
-
 
             buttonSave.DialogResult = DialogResult.OK;
             buttonCancel.DialogResult = DialogResult.Cancel;

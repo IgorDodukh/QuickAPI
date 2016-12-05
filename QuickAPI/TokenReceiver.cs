@@ -181,9 +181,9 @@ namespace QuickAPI
 
 
                         List<String> matchesNamesList = new List<String>();
-                        matchesNamesList.Add("\"ProductSKU\"");
+                        matchesNamesList.Add("\"ProductName\"");
                         matchesNamesList.Add("\"WarehouseName\"");
-                        matchesNamesList.Add("/customers");
+                        matchesNamesList.Add("\"FirstName\"");
                         matchesNamesList.Add("\"Name\"");
 
                         matchesName = matchesNamesList[entityTypeIndex];
@@ -199,6 +199,10 @@ namespace QuickAPI
                         else if (url.Contains("products"))
                         {
                             addingIndex = 15;
+                        }
+                        else if (url.Contains("customers"))
+                        {
+                            addingIndex = 13;
                         }
                         StringBuilder sb = new StringBuilder();
 
