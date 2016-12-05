@@ -62,7 +62,7 @@ namespace QuickAPI
             entityTypeComboBox.SelectedIndex = 0;
 
             Dictionary<string, string> requestTypes = new Dictionary<string, string>();
-//            requestTypes.Add("GET", "View");
+            requestTypes.Add("GET", "View");
             requestTypes.Add("POST", "Create");
             requestTypes.Add("PUT", "Update");
             requestTypes.Add("DELETE", "Remove");
@@ -175,9 +175,7 @@ namespace QuickAPI
             return dialogResult;
 
         }
-
-
-
+        
         private void entityTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
            if(eventLabel.Text.Contains(" "))

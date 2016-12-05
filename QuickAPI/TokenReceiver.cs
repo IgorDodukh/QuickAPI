@@ -69,15 +69,15 @@ namespace QuickAPI
             recourcesList.Add("/customers");
 
             List<String> requestsList = new List<String>();
+            requestsList.Add("GET");
             requestsList.Add("POST");
             requestsList.Add("PUT");
             requestsList.Add("DELETE");
+            
 
             string result = "";
             try
             {
-                LoadJson();
-                UpdateJson();
 
                 using (var client = new WebClient())
                 {
@@ -85,7 +85,17 @@ namespace QuickAPI
                     client.Headers.Add("x-freestyle-api-auth", ApiToken);
 
                     client.Headers[HttpRequestHeader.ContentType] = "application/json";
-                    result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex], json);
+                    if(requestTypeIndex == 0)
+                    {
+                        result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex]);
+                    }
+                    else
+                    {
+                        LoadJson();
+                        UpdateJson();
+
+                        result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex], json);
+                    }
                 }
                 Console.WriteLine("--result: " + result);
                 Console.WriteLine("--result JSON: " + json);
