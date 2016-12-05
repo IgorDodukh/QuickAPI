@@ -23,6 +23,9 @@ namespace QuickAPI
         private static string url;
         private static string entityName;
 
+        public static string randomNumberLength;
+        public static string newRandomNumberLength;
+
         private static string RandomString(int Size)
         {
             Random random = new Random();
@@ -56,13 +59,15 @@ namespace QuickAPI
 
         private static void UpdateJson()
         {
-            json = json.Replace("xxxxx", RandomString(5));
-            json = json.Replace("PRODPRODSKU", QuickAPIMain.productSKUValue);
-            json = json.Replace("PRODPRODNAME", QuickAPIMain.productNameValue);
-            json = json.Replace("FIRSTFIRSTNAME", QuickAPIMain.firstNameValue);
-            json = json.Replace("LASTLASTNAME", QuickAPIMain.lastNameValue);
-            json = json.Replace("WHWHNAME", QuickAPIMain.warehouseNameValue);
-            json = json.Replace("SHIPMETHNAME", QuickAPIMain.shippingMethodNameValue);
+            json = json.Replace("xxxxx", RandomString(Convert.ToInt32(randomNumberLength)));
+            json = json.Replace("PRODPRODSKU", MainForm.productSKUValue);
+            json = json.Replace("PRODPRODNAME", MainForm.productNameValue);
+            json = json.Replace("FIRSTFIRSTNAME", MainForm.firstNameValue);
+            json = json.Replace("LASTLASTNAME", MainForm.lastNameValue);
+            json = json.Replace("WHWHNAME", MainForm.warehouseNameValue);
+            json = json.Replace("SHIPMETHNAME", MainForm.shippingMethodNameValue);
+            json = json.Replace("11111", MainForm.productQuantityValue);
+
         }
 
         private static void GetEntityName(string json)
@@ -147,25 +152,21 @@ namespace QuickAPI
                         int addingIndex = 0;
 
                         Form form = new Form();
-                        TextBox textBox1 = new TextBox();
+                        ListBox listBox = new ListBox();
                         Label label1 = new Label();
                         Label label2 = new Label();
                         Button button1 = new Button();
 
-                        textBox1.Multiline = true;
-                        textBox1.Height = 250;
-                        textBox1.Width = 200;
-                        textBox1.ReadOnly = true;
-                        textBox1.ScrollBars = ScrollBars.Vertical;
-                        textBox1.Clear();
-                        textBox1.Anchor = textBox1.Anchor | AnchorStyles.Right;
+                        listBox.Height = 250;
+                        listBox.Width = 200;
+                        listBox.Anchor = listBox.Anchor | AnchorStyles.Right;
 
                         button1.Text = "OK";
                         button1.DialogResult = DialogResult.OK;
 
                         label1.SetBounds(10, 10, 250, 15);
                         label2.SetBounds(10, 35, 250, 15);
-                        textBox1.SetBounds(10, 60, 220, 200);
+                        listBox.SetBounds(10, 60, 220, 200);
                         button1.SetBounds(125, 270, 75, 23);
 
                         form.ClientSize = new Size(240, 300);
@@ -176,11 +177,11 @@ namespace QuickAPI
                         form.MinimizeBox = false;
                         form.MaximizeBox = false;
                         form.AcceptButton = button1;
-                        form.Controls.AddRange(new Control[] { label1, label2, textBox1, button1});
+                        form.Controls.AddRange(new Control[] { label1, label2, listBox, button1});
 
 
                         List<String> matchesNamesList = new List<String>();
-                        matchesNamesList.Add("/products");
+                        matchesNamesList.Add("\"ProductSKU\"");
                         matchesNamesList.Add("\"WarehouseName\"");
                         matchesNamesList.Add("/customers");
                         matchesNamesList.Add("\"Name\"");
@@ -195,6 +196,10 @@ namespace QuickAPI
                         {
                             addingIndex = 8;
                         }
+                        else if (url.Contains("products"))
+                        {
+                            addingIndex = 15;
+                        }
                         StringBuilder sb = new StringBuilder();
 
                         var matches = Regex.Matches(returnedBody, matchesName);
@@ -208,18 +213,17 @@ namespace QuickAPI
                             namesList += returnedItemName + "\n";
 
                             sb.AppendLine(returnedItemName);
-
+                            listBox.Items.Add(returnedItemName);
                             returnedBody = returnedBody.Remove(0, returnedBody.IndexOf(returnedItemName) + returnedItemName.Length);
-                            Console.WriteLine(firstCharIndex);
-                            Console.WriteLine(returnedItemName);
+                            Console.WriteLine("--firstCharIndex: " + firstCharIndex);
+                            Console.WriteLine("--returnedItemName: " + returnedItemName);
                         }
                         url = url.Trim('/').TrimEnd('s');
 
                         label1.Text = "Request completed (" + matches.Count + " elements found)";
                         label2.Text = "A list of " + url + "s has been returned";
-                        textBox1.Text += sb.ToString();
+                        
                         form.ShowDialog();
-//                        MessageBox.Show("Request completed.\nA list of " + url + "s has been returned\n(" + matches.Count + " elements found):\n\n" + namesList);
                     }
                 }
 

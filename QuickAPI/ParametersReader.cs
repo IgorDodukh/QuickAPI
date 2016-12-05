@@ -34,12 +34,12 @@ namespace QuickAPI
                         MessageBox.Show("Reading config file is failed. " + e.Message);
                     }
                 }
-                QuickAPIMain.productSKUValue = mysettings["PRODSKU"];
-                QuickAPIMain.productNameValue = mysettings["PRODNAME"];
-                QuickAPIMain.firstNameValue = mysettings["FIRSTNAME"];
-                QuickAPIMain.lastNameValue = mysettings["LASTNAME"];
-                QuickAPIMain.warehouseNameValue = mysettings["WAREHOUSENAME"];
-                QuickAPIMain.shippingMethodNameValue = mysettings["SHIPMETHNAME"];
+                MainForm.productSKUValue = mysettings["PRODSKU"];
+                MainForm.productNameValue = mysettings["PRODNAME"];
+                MainForm.firstNameValue = mysettings["FIRSTNAME"];
+                MainForm.lastNameValue = mysettings["LASTNAME"];
+                MainForm.warehouseNameValue = mysettings["WAREHOUSENAME"];
+                MainForm.shippingMethodNameValue = mysettings["SHIPMETHNAME"];
             }
         }
 
@@ -73,6 +73,36 @@ namespace QuickAPI
             }
         }
 
+        public static void ReadDefaultVariables()
+        {
+            string contents = String.Empty;
+            using (FileStream fs = File.Open("configs/defaultVariables.config", FileMode.Open, FileAccess.ReadWrite))
+            using (StreamReader reader = new StreamReader(fs))
+            {
+                contents = reader.ReadToEnd();
+            }
+
+            if (contents.Length > 0)
+            {
+                string[] lines = contents.Split(new char[] { '\n' });
+                Dictionary<string, string> mysettings = new Dictionary<string, string>();
+                foreach (string line in lines)
+                {
+                    try
+                    {
+                        string[] keyAndValue = line.Split(new char[] { '=' });
+                        mysettings.Add(keyAndValue[0].Trim(), keyAndValue[1].Trim());
+                    }
+                    catch (IndexOutOfRangeException e)
+                    {
+                        MessageBox.Show("Reading config file is failed. " + e.Message);
+                    }
+                }
+                MainForm.productQuantityValue = mysettings["PRODQTY"];
+                RequestsHandler.randomNumberLength = mysettings["RANDOMNUMBER"];
+            }
+        }
+
 
         public static void UpdateDefaultNames()
         {
@@ -82,12 +112,12 @@ namespace QuickAPI
             {
                 contents = reader.ReadToEnd();
             }
-            contents = contents.Replace(QuickAPIMain.productSKUValue, QuickAPIMain.newProductSKUValue);
-            contents = contents.Replace(QuickAPIMain.productNameValue, QuickAPIMain.newProductNameValue);
-            contents = contents.Replace(QuickAPIMain.firstNameValue, QuickAPIMain.newFirstNameValue);
-            contents = contents.Replace(QuickAPIMain.lastNameValue, QuickAPIMain.newLastNameValue);
-            contents = contents.Replace(QuickAPIMain.warehouseNameValue, QuickAPIMain.newWarehouseNameValue);
-            contents = contents.Replace(QuickAPIMain.shippingMethodNameValue, QuickAPIMain.newShippingMethodNameValue);
+            contents = contents.Replace(MainForm.productSKUValue, MainForm.newProductSKUValue);
+            contents = contents.Replace(MainForm.productNameValue, MainForm.newProductNameValue);
+            contents = contents.Replace(MainForm.firstNameValue, MainForm.newFirstNameValue);
+            contents = contents.Replace(MainForm.lastNameValue, MainForm.newLastNameValue);
+            contents = contents.Replace(MainForm.warehouseNameValue, MainForm.newWarehouseNameValue);
+            contents = contents.Replace(MainForm.shippingMethodNameValue, MainForm.newShippingMethodNameValue);
 
             File.WriteAllText("configs/defaultNames.config", contents);
         }
@@ -104,6 +134,21 @@ namespace QuickAPI
             contents = contents.Replace(GetTokenForm.passwordValue, GetTokenForm.newPasswordValue);
 
             File.WriteAllText("configs/defaultCredentials.config", contents);
+        }
+
+        public static void UpdateDefaultVariables()
+        {
+            string contents = String.Empty;
+            using (FileStream fs = File.Open("configs/defaultVariables.config", FileMode.Open))
+            using (StreamReader reader = new StreamReader(fs))
+            {
+                contents = reader.ReadToEnd();
+            }
+
+            contents = contents.Replace(MainForm.productQuantityValue, MainForm.newProductQuantityValue);
+            contents = contents.Replace(RequestsHandler.randomNumberLength, RequestsHandler.newRandomNumberLength);
+
+            File.WriteAllText("configs/defaultVariables.config", contents);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace QuickAPI
 {
-    partial class QuickAPIMain
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.entityTypeComboBox = new System.Windows.Forms.ComboBox();
             this.requestTypeComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,9 +45,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.systemVariablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -67,6 +68,26 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Request options";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label6.Location = new System.Drawing.Point(152, 89);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(0, 17);
+            this.label6.TabIndex = 10;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label5.Location = new System.Drawing.Point(6, 89);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(0, 17);
+            this.label5.TabIndex = 9;
             // 
             // entityTypeComboBox
             // 
@@ -216,7 +237,8 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.defaultNamesToolStripMenuItem});
+            this.defaultNamesToolStripMenuItem,
+            this.systemVariablesToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(74, 24);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -224,9 +246,16 @@
             // defaultNamesToolStripMenuItem
             // 
             this.defaultNamesToolStripMenuItem.Name = "defaultNamesToolStripMenuItem";
-            this.defaultNamesToolStripMenuItem.Size = new System.Drawing.Size(183, 26);
+            this.defaultNamesToolStripMenuItem.Size = new System.Drawing.Size(195, 26);
             this.defaultNamesToolStripMenuItem.Text = "Default Names";
             this.defaultNamesToolStripMenuItem.Click += new System.EventHandler(this.defaultNamesToolStripMenuItem_Click);
+            // 
+            // systemVariablesToolStripMenuItem
+            // 
+            this.systemVariablesToolStripMenuItem.Name = "systemVariablesToolStripMenuItem";
+            this.systemVariablesToolStripMenuItem.Size = new System.Drawing.Size(195, 26);
+            this.systemVariablesToolStripMenuItem.Text = "System Variables";
+            this.systemVariablesToolStripMenuItem.Click += new System.EventHandler(this.systemVariablesToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -235,31 +264,7 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(6, 89);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(118, 17);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Shipping Service:";
-            this.label5.Visible = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Location = new System.Drawing.Point(152, 89);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(88, 17);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "UPS Ground";
-            this.label6.Visible = false;
-            // 
-            // QuickAPIMain
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -274,7 +279,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "QuickAPIMain";
+            this.Name = "MainForm";
             this.Text = "QuickAPIMain";
             this.Load += new System.EventHandler(this.QuickAPIMain_Load);
             this.groupBox1.ResumeLayout(false);
@@ -308,5 +313,6 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ToolStripMenuItem systemVariablesToolStripMenuItem;
     }
 }
