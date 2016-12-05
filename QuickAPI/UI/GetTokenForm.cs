@@ -12,8 +12,11 @@ namespace QuickAPI
 {
     public partial class GetTokenForm : Form
     {
-        private static string login = "";
-        private static string password = "";
+        public static string loginValue;
+        public static string passwordValue;
+        public static string newLoginValue;
+        public static string newPasswordValue;
+
         public static string selectedEnvironmentLink;
         public static string selectedEnvironmentKey;
         private static QuickAPIMain quickAPIMain = new QuickAPIMain();
@@ -27,6 +30,7 @@ namespace QuickAPI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             Dictionary<string, string> environments = new Dictionary<string, string>();
             environments.Add("QA01", "https://apiqa01.freestylecommerce.info/V2");
             environments.Add("QA03", "https://apiqa03.freestylecommerce.info/V2");
@@ -37,6 +41,10 @@ namespace QuickAPI
             environmentComboBox.DisplayMember = "Key";
             environmentComboBox.ValueMember = "Value";
             environmentComboBox.SelectedIndex = 3;
+
+            ParametersReader.ReadDefaultCredentials();
+            textBox2.Text = loginValue;
+            textBox3.Text = passwordValue;
 
             /*
                         farbe = textBox1.ForeColor;
@@ -115,13 +123,12 @@ namespace QuickAPI
             
             if (warningMessage == "")
             {
-                login = textBox2.Text;
-                password = textBox3.Text;
-                Console.Out.WriteLine("---login: " + login);
-                Console.Out.WriteLine("---password: " + password);
+                newLoginValue = textBox2.Text;
+                newPasswordValue = textBox3.Text;
+                ParametersReader.UpdateDefaultCredentials();
 
-                TokenReceiver.CreateObject(login, password);
-                if (TokenReceiver.ApiToken != null)
+                RequestsHandler.CreateObject(newLoginValue, newPasswordValue);
+                if (RequestsHandler.ApiToken != null)
                 {
                     this.Hide();
                     quickAPIMain.Show();
