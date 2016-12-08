@@ -54,7 +54,10 @@ namespace QuickAPI
                     RequestsHandler.SendJson();
 
                 }
-                else MessageBox.Show("Please, specify Order # to continue...");
+                else
+                {
+                    MessageBox.Show("Order # is required.");
+                }
             }
             else
             {
@@ -154,7 +157,7 @@ namespace QuickAPI
             buttonSave.BackColor = Color.FromArgb(45, 177, 53);
 
             buttonCancel.FlatStyle = FlatStyle.Flat;
-            buttonCancel.BackColor = Color.FromArgb(255, 53, 53);
+            buttonCancel.BackColor = Color.FromArgb(236, 100, 75);
             buttonCancel.ForeColor = Color.White;
             buttonCancel.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
 
@@ -279,7 +282,7 @@ namespace QuickAPI
             buttonSave.BackColor = Color.FromArgb(45, 177, 53);
 
             buttonCancel.FlatStyle = FlatStyle.Flat;
-            buttonCancel.BackColor = Color.FromArgb(255, 53, 53);
+            buttonCancel.BackColor = Color.FromArgb(236, 100, 75);
             buttonCancel.ForeColor = Color.White;
             buttonCancel.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
 
