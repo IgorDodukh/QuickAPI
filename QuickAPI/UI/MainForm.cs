@@ -32,6 +32,8 @@ namespace QuickAPI
 
         public static string newProductQuantityValue;
 
+        public static string orderNumber;
+
         public MainForm()
         {
             InitializeComponent();
@@ -40,11 +42,29 @@ namespace QuickAPI
 
         private void sendButton_Click(object sender, EventArgs e)
         {
-            ParametersReader.ReadDefaultNames();
-            ParametersReader.ReadDefaultVariables();
-            RequestsHandler.requestTypeIndex = requestTypeComboBox.SelectedIndex;
-            RequestsHandler.entityTypeIndex = entityTypeComboBox.SelectedIndex;
-            RequestsHandler.SendJson();
+            if (orderNumberTextBox.Visible == true)
+            {
+                if (orderNumberTextBox.Text != "")
+                {
+                    orderNumber = orderNumberTextBox.Text;
+                    ParametersReader.ReadDefaultNames();
+                    ParametersReader.ReadDefaultVariables();
+                    RequestsHandler.requestTypeIndex = requestTypeComboBox.SelectedIndex;
+                    RequestsHandler.entityTypeIndex = entityTypeComboBox.SelectedIndex;
+                    RequestsHandler.SendJson();
+
+                }
+                else MessageBox.Show("Please, specify Order # to continue...");
+            }
+            else
+            {
+                ParametersReader.ReadDefaultNames();
+                ParametersReader.ReadDefaultVariables();
+                RequestsHandler.requestTypeIndex = requestTypeComboBox.SelectedIndex;
+                RequestsHandler.entityTypeIndex = entityTypeComboBox.SelectedIndex;
+                RequestsHandler.SendJson();
+
+            }
         }
 
         private void QuickAPIMain_Load(object sender, EventArgs e)
@@ -56,6 +76,7 @@ namespace QuickAPI
             entityTypes.Add("Warehouse", "Warehouses");
             entityTypes.Add("Customer", "Customers");
             entityTypes.Add("ShippingMethod", "ShippingMethods");
+            entityTypes.Add("Order", "Orders");
 
             entityTypeComboBox.DataSource = new BindingSource(entityTypes, null);
             entityTypeComboBox.DisplayMember = "Key";
@@ -65,13 +86,13 @@ namespace QuickAPI
             Dictionary<string, string> requestTypes = new Dictionary<string, string>();
             requestTypes.Add("GET", "View");
             requestTypes.Add("POST", "Create");
-            requestTypes.Add("PUT", "Update");
-            requestTypes.Add("DELETE", "Remove");
+//            requestTypes.Add("PUT", "Update");
+//            requestTypes.Add("DELETE", "Remove");
 
             requestTypeComboBox.DataSource = new BindingSource(requestTypes, null);
             requestTypeComboBox.DisplayMember = "Key";
             requestTypeComboBox.ValueMember = "Value";
-            requestTypeComboBox.SelectedIndex = 1;
+            requestTypeComboBox.SelectedIndex = 0;
 
             string requestValue = ((KeyValuePair<string, string>)requestTypeComboBox.SelectedItem).Value;
             string entityValue = ((KeyValuePair<string, string>)entityTypeComboBox.SelectedItem).Key;
@@ -140,26 +161,26 @@ namespace QuickAPI
             buttonSave.DialogResult = DialogResult.OK;
             buttonCancel.DialogResult = DialogResult.Cancel;
 
-            label1.SetBounds(10, 10, 110, 22);
-            textBox1.SetBounds(120, 8, 250, 22);
+            label1.SetBounds(10, 20, 110, 22);
+            textBox1.SetBounds(120, 18, 250, 22);
 
-            label2.SetBounds(10, 40, 110, 22);
-            textBox2.SetBounds(120, 38, 250, 22);
+            label2.SetBounds(10, 55, 110, 22);
+            textBox2.SetBounds(120, 53, 250, 22);
 
-            label3.SetBounds(10, 70, 110, 22);
-            textBox3.SetBounds(120, 68, 250, 22);
+            label3.SetBounds(10, 90, 110, 22);
+            textBox3.SetBounds(120, 88, 250, 22);
 
-            label4.SetBounds(10, 100, 110, 22);
-            textBox4.SetBounds(120, 98, 250, 22);
+            label4.SetBounds(10, 125, 110, 22);
+            textBox4.SetBounds(120, 123, 250, 22);
 
-            label5.SetBounds(10, 130, 110, 22);
-            textBox5.SetBounds(120, 128, 250, 22);
+            label5.SetBounds(10, 160, 110, 22);
+            textBox5.SetBounds(120, 158, 250, 22);
 
-            label6.SetBounds(10, 160, 110, 22);
-            textBox6.SetBounds(120, 158, 250, 22);
+            label6.SetBounds(10, 195, 110, 22);
+            textBox6.SetBounds(120, 193, 250, 22);
 
-            buttonSave.SetBounds(210, 190, 75, 23);
-            buttonCancel.SetBounds(290, 190, 75, 23);
+            buttonSave.SetBounds(210, 230, 75, 23);
+            buttonCancel.SetBounds(290, 230, 75, 23);
 
             textBox1.Anchor = textBox1.Anchor | AnchorStyles.Right;
             textBox2.Anchor = textBox2.Anchor | AnchorStyles.Right;
@@ -171,7 +192,7 @@ namespace QuickAPI
             buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
-            form.ClientSize = new Size(380, 220);
+            form.ClientSize = new Size(380, 270);
             form.Controls.AddRange(new Control[] { label1, label2, label3, label4, label5, label6,
             textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, buttonSave, buttonCancel });
             form.ClientSize = new Size(Math.Max(300, label1.Right + 10), form.ClientSize.Height);
@@ -237,14 +258,14 @@ namespace QuickAPI
             buttonSave.DialogResult = DialogResult.OK;
             buttonCancel.DialogResult = DialogResult.Cancel;
 
-            label1.SetBounds(10, 10, 170, 22);
-            textBox1.SetBounds(180, 8, 30, 22);
+            label1.SetBounds(10, 20, 170, 22);
+            textBox1.SetBounds(180, 18, 30, 22);
 
-            label2.SetBounds(10, 40, 170, 22);
-            textBox2.SetBounds(180, 38, 30, 22);
+            label2.SetBounds(10, 55, 170, 22);
+            textBox2.SetBounds(180, 53, 30, 22);
 
-            buttonSave.SetBounds(50, 70, 75, 23);
-            buttonCancel.SetBounds(130, 70, 75, 23);
+            buttonSave.SetBounds(50, 90, 75, 23);
+            buttonCancel.SetBounds(130, 90, 75, 23);
 
             textBox1.Anchor = textBox1.Anchor | AnchorStyles.Right;
             textBox2.Anchor = textBox2.Anchor | AnchorStyles.Right;
@@ -262,7 +283,7 @@ namespace QuickAPI
             buttonCancel.ForeColor = Color.White;
             buttonCancel.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
 
-            form.ClientSize = new Size(225, 105);
+            form.ClientSize = new Size(225, 130);
             form.Controls.AddRange(new Control[] { label1, label2, textBox1, textBox2, buttonSave, buttonCancel });
             form.ClientSize = new Size(Math.Max(300, label1.Right + 10), form.ClientSize.Height);
             form.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -290,45 +311,81 @@ namespace QuickAPI
 
         private void entityTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-           if(eventLabel.Text.Contains(" "))
+
+            if (eventLabel.Text.Contains(" "))
             {
                 string entityValue = ((KeyValuePair<string, string>)entityTypeComboBox.SelectedItem).Key;
                 string requestValue = ((KeyValuePair<string, string>)requestTypeComboBox.SelectedItem).Value;
+
                 string value = eventLabel.Text;
                 value = value.Remove(value.IndexOf(" "), value.Length - value.IndexOf(" "));
                 eventLabel.Text = value + " " + entityValue;
-                /*
-                if (entityValue.Contains("Shipping") && requestValue.Contains("Create"))
+
+                if (requestValue.Contains("Create"))
                 {
-                    label5.Text = "Shipping Service:";
-                    label6.Text = "UPS Ground";
-                } else if (!requestValue.Contains("Create"))
+                    if (entityValue.Contains("Order"))
+                    {
+                        label5.Text = "Order # for reorder:";
+                        label5.Visible = true;
+                        orderNumberTextBox.Visible = true;
+                    }
+                    else
+                    {
+                        label5.Visible = false;
+                        orderNumberTextBox.Visible = false;
+                    }
+                } /*else if (requestValue.Contains("View"))
                 {
-                    label5.Text = "";
-                    label6.Text = "";
+                    if (entityValue.Contains("Product"))
+                    {
+                        label5.Text = "Not supported!!!";
+                        label5.Visible = true;
+                    } else if (entityValue.Contains("Order"))
+                    {
+                        label5.Text = "Not supported!!!";
+                        label5.Visible = true;
+                    }
+                    else if (entityValue.Contains("Customer"))
+                    {
+                        label5.Text = "Not supported!!!";
+                        label5.Visible = true;
+                    }
+                    else
+                    {
+                        label5.Visible = false;
+                    }
                 }*/
             }
+
+            
         }
 
         private void requestTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             if (eventLabel.Text.Contains(" "))
             {
+                string entityValue = ((KeyValuePair<string, string>)entityTypeComboBox.SelectedItem).Key;
                 string requestValue = ((KeyValuePair<string, string>)requestTypeComboBox.SelectedItem).Value;
                 string value = eventLabel.Text;
+
                 value = value.Remove(0, value.IndexOf(" ")+1);
                 eventLabel.Text = requestValue + " " + value;
-                /*
-                if (requestValue.Contains("View"))
+
+                if (entityValue.Contains("Order"))
                 {
-                    label5.Text = "Supported:";
-                    label6.Text = "WH and Ship Methods";
+                    if (requestValue.Contains("Create"))
+                    {
+                        label5.Text = "Order # for reorder:";
+                        label5.Visible = true;
+                        orderNumberTextBox.Visible = true;
+                    }
+                    else
+                    {
+                        label5.Visible = false;
+                        orderNumberTextBox.Visible = false;
+                    }
                 }
-                else
-                {
-                    label5.Text = "";
-                    label6.Text = "";
-                }*/
             }
 
         }

@@ -117,6 +117,7 @@
             // 
             this.environmentComboBox.DisplayMember = "POST Product";
             this.environmentComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.environmentComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.environmentComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.environmentComboBox.FormattingEnabled = true;
             this.environmentComboBox.Location = new System.Drawing.Point(19, 38);

@@ -47,6 +47,7 @@
             this.defaultNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.systemVariablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.orderNumberTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -54,6 +55,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.orderNumberTextBox);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.entityTypeComboBox);
@@ -271,6 +273,14 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // orderNumberTextBox
+            // 
+            this.orderNumberTextBox.Location = new System.Drawing.Point(154, 84);
+            this.orderNumberTextBox.Name = "orderNumberTextBox";
+            this.orderNumberTextBox.Size = new System.Drawing.Size(168, 22);
+            this.orderNumberTextBox.TabIndex = 11;
+            this.orderNumberTextBox.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -321,5 +331,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolStripMenuItem systemVariablesToolStripMenuItem;
+        private System.Windows.Forms.TextBox orderNumberTextBox;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickAPI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,6 +27,12 @@ namespace QuickAPI
         public GetTokenForm()
         {
             InitializeComponent();
+            ComboBox myCombo = new ComboBox();
+            myCombo.Left = environmentComboBox.Left;
+            myCombo.Top = 20;
+            myCombo.FlatStyle = FlatStyle.Flat;
+            this.Controls.Add(myCombo);
+
         }
 
         private void Form1_Load(object sender, EventArgs e)

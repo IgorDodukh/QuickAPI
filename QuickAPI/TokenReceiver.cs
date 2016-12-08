@@ -109,6 +109,7 @@ namespace QuickAPI
             recourcesList.Add("/warehouses");
             recourcesList.Add("/customers");
             recourcesList.Add("/ShippingMethods");
+            recourcesList.Add("/orders");
 
             List<String> requestsList = new List<String>();
             requestsList.Add("GET");
@@ -118,9 +119,12 @@ namespace QuickAPI
 
             try
             {
-                LoadJson();
-                UpdateJson();
-                GetEntityName(json);
+                if (entityTypeIndex != 4)
+                {
+                    LoadJson();
+                    UpdateJson();
+                    GetEntityName(json);
+                }
 
                 url = recourcesList[entityTypeIndex + 1];
 
@@ -130,6 +134,23 @@ namespace QuickAPI
 
                     if (requestsList[requestTypeIndex] == "POST")
                     {
+                        if(entityTypeIndex == 4)
+                        {
+                            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(selectedEnvironmentLink + url + "/" + MainForm.orderNumber);
+                            request.Headers.Add("x-freestyle-api-auth", ApiToken);
+                            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                            Stream resStream = response.GetResponseStream();
+                            StreamReader readStream = new StreamReader(resStream, Encoding.UTF8);
+                            json = readStream.ReadToEnd();
+                            Console.WriteLine("--Order json: " + json);
+                            entityName = MainForm.orderNumber + "-" + RandomString(Convert.ToInt32(randomNumberLength));
+                            json = json.Replace(MainForm.orderNumber, entityName);
+                            json = json.Replace("+00:00", "");
+
+                            
+                            Console.WriteLine("--updated json: " + json);
+
+                        }
                         client.Headers[HttpRequestHeader.ContentType] = "application/json";
                         result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex], json);
                         url = url.Trim('/').TrimEnd('s');
@@ -150,24 +171,36 @@ namespace QuickAPI
                         string namesList = "";
                         string matchesName = "";
                         int addingIndex = 0;
+                        string selectedListBoxItem = "";
+                        string resourceName = "";
 
                         Form form = new Form();
                         ListBox listBox = new ListBox();
                         Label label1 = new Label();
                         Label label2 = new Label();
-                        Button button1 = new Button();
+                        Button okButton = new Button();
+                        Button deleteButton = new Button();
 
                         listBox.Height = 250;
                         listBox.Width = 200;
                         listBox.Anchor = listBox.Anchor | AnchorStyles.Right;
 
-                        button1.Text = "OK";
-                        button1.DialogResult = DialogResult.OK;
+                        okButton.Text = "OK";
+                        deleteButton.Text = "Delete Item";
+                        okButton.DialogResult = DialogResult.OK;
+                        deleteButton.DialogResult = DialogResult.Yes;
 
                         label1.SetBounds(10, 10, 250, 15);
                         label2.SetBounds(10, 35, 250, 15);
                         listBox.SetBounds(10, 60, 220, 200);
-                        button1.SetBounds(125, 270, 75, 23);
+                        okButton.SetBounds(145, 270, 75, 23);
+                        deleteButton.SetBounds(25, 270, 100, 23);
+
+                        deleteButton.FlatStyle = FlatStyle.Flat;
+                        deleteButton.BackColor = Color.FromArgb(255, 53, 53);
+                        deleteButton.ForeColor = Color.White;
+                        deleteButton.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
+//                        deleteButton.Enabled = false;
 
                         form.ClientSize = new Size(240, 300);
                         form.Text = "Found elements list";
@@ -176,8 +209,8 @@ namespace QuickAPI
                         form.StartPosition = FormStartPosition.CenterScreen;
                         form.MinimizeBox = false;
                         form.MaximizeBox = false;
-                        form.AcceptButton = button1;
-                        form.Controls.AddRange(new Control[] { label1, label2, listBox, button1});
+                        form.AcceptButton = okButton;
+                        form.Controls.AddRange(new Control[] { label1, label2, listBox, okButton, deleteButton});
 
 
                         List<String> matchesNamesList = new List<String>();
@@ -222,21 +255,69 @@ namespace QuickAPI
                             Console.WriteLine("--firstCharIndex: " + firstCharIndex);
                             Console.WriteLine("--returnedItemName: " + returnedItemName);
                         }
-                        url = url.Trim('/').TrimEnd('s');
+                        resourceName = url.Trim('/').TrimEnd('s');
+                        listBox.SetSelected(0, true);
 
                         label1.Text = "Request completed (" + matches.Count + " elements found)";
-                        label2.Text = "A list of " + url + "s has been returned";
+                        label2.Text = "A list of " + resourceName + "s has been returned";
                         
                         form.ShowDialog();
+                        if(form.DialogResult == DialogResult.Yes)
+                        {
+                            selectedListBoxItem = listBox.SelectedItem.ToString();
+                            DeleteRequest(selectedListBoxItem, selectedEnvironmentLink + url);
+                        }
                     }
                 }
 
             }
             catch (Exception e)
             {
-                Console.WriteLine(result);
                 MessageBox.Show("Request failed:\n" + e.Message + "\n" + result);
             }
+        }
+
+        public static void DeleteRequest(string itemName, string resourceUrl)
+        {
+            Console.Out.WriteLine(itemName +", " + resourceUrl);
+
+            string urlFiltering = "";
+            string finalUrl = "";
+
+            if (resourceUrl.Contains("warehouses"))
+            {
+                urlFiltering = string.Concat(resourceUrl, "?WarehouseName=" + itemName);
+            }
+            else if (resourceUrl.Contains("ShippingMethods"))
+            {
+                urlFiltering = string.Concat(resourceUrl, "?Name=" + itemName);
+            }
+            Console.Out.WriteLine(urlFiltering);
+
+            int firstCharIndex;
+            string returnedId = "";
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlFiltering);
+            request.Headers.Add("x-freestyle-api-auth", ApiToken);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream resStream = response.GetResponseStream();
+            StreamReader readStream = new StreamReader(resStream, Encoding.UTF8);
+            string returnedBody = readStream.ReadToEnd();
+            Console.Out.WriteLine(returnedBody);
+
+            returnedBody = returnedBody.Remove(0, 8);
+            firstCharIndex = returnedBody.IndexOf("\"");
+            if (firstCharIndex >= 0)
+                returnedId = returnedBody.Remove(firstCharIndex, returnedBody.Length - firstCharIndex);
+
+            Console.Out.WriteLine("final id: " + returnedId);
+            finalUrl = resourceUrl + "/" + returnedId;
+
+            HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(finalUrl);
+            request2.Method = ("DELETE");
+            request2.Headers.Add("x-freestyle-api-auth", ApiToken);
+            HttpWebResponse response2 = (HttpWebResponse)request2.GetResponse();
+
         }
 
         public static void CreateObject(string login, string password)
