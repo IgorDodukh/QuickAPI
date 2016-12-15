@@ -22,6 +22,7 @@ namespace QuickAPI
         private static string response;
         private static string url;
         private static string entityName;
+        private static string responseBody;
 
         public static string randomNumberLength;
         public static string newRandomNumberLength;
@@ -67,7 +68,6 @@ namespace QuickAPI
             json = json.Replace("WHWHNAME", MainForm.warehouseNameValue);
             json = json.Replace("SHIPMETHNAME", MainForm.shippingMethodNameValue);
             json = json.Replace("11111", MainForm.productQuantityValue);
-
         }
 
         private static void GetEntityName(string json)
@@ -97,6 +97,28 @@ namespace QuickAPI
             firstCharIndex = entityName.IndexOf("\"");
             if (firstCharIndex >= 0)
                 entityName = entityName.Remove(firstCharIndex, entityName.Length - firstCharIndex);
+        }
+
+        public static string SendGetRequest(string resourceUrl)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(resourceUrl);
+            request.Headers.Add("x-freestyle-api-auth", ApiToken);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream resStream = response.GetResponseStream();
+            StreamReader readStream = new StreamReader(resStream, Encoding.UTF8);
+            responseBody = readStream.ReadToEnd();
+            return responseBody;
+        }
+
+        public static void SendPostRequest()
+        {
+            string result = "";
+
+            var client = new WebClient();
+            client.Headers[HttpRequestHeader.ContentType] = "application/json";
+            result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex], json);
+            url = url.Trim('/').TrimEnd('s');
+
         }
 
         public static void SendJson()
@@ -136,20 +158,11 @@ namespace QuickAPI
                     {
                         if(entityTypeIndex == 4)
                         {
-                            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(selectedEnvironmentLink + url + "/" + MainForm.orderNumber);
-                            request.Headers.Add("x-freestyle-api-auth", ApiToken);
-                            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                            Stream resStream = response.GetResponseStream();
-                            StreamReader readStream = new StreamReader(resStream, Encoding.UTF8);
-                            json = readStream.ReadToEnd();
-                            Console.WriteLine("--Order json: " + json);
+                            SendGetRequest(selectedEnvironmentLink + url + "/" + MainForm.orderNumber);
+
                             entityName = MainForm.orderNumber + "-" + RandomString(Convert.ToInt32(randomNumberLength));
-                            json = json.Replace(MainForm.orderNumber, entityName);
+                            json = responseBody.Replace(MainForm.orderNumber, entityName);
                             json = json.Replace("+00:00", "");
-
-                            
-                            Console.WriteLine("--updated json: " + json);
-
                         }
                         client.Headers[HttpRequestHeader.ContentType] = "application/json";
                         result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex], json);
@@ -158,12 +171,7 @@ namespace QuickAPI
                     }
                     else if (requestsList[requestTypeIndex] == "GET")
                     {
-                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(selectedEnvironmentLink + url);
-                        request.Headers.Add("x-freestyle-api-auth", ApiToken);
-                        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                        Stream resStream = response.GetResponseStream();
-                        StreamReader readStream = new StreamReader(resStream, Encoding.UTF8);
-                        string returnedBody = readStream.ReadToEnd();
+                        SendGetRequest(selectedEnvironmentLink + url);
 
                         int firstCharIndex;
                         int index;
@@ -212,7 +220,6 @@ namespace QuickAPI
                         form.AcceptButton = okButton;
                         form.Controls.AddRange(new Control[] { label1, label2, listBox, okButton, deleteButton});
 
-
                         List<String> matchesNamesList = new List<String>();
                         matchesNamesList.Add("\"ProductName\"");
                         matchesNamesList.Add("\"WarehouseName\"");
@@ -239,11 +246,11 @@ namespace QuickAPI
                         }
                         StringBuilder sb = new StringBuilder();
 
-                        var matches = Regex.Matches(returnedBody, matchesName);
+                        var matches = Regex.Matches(responseBody, matchesName);
                         foreach (var m in matches)
                         {
-                            index = returnedBody.IndexOf(m.ToString());
-                            returnedItemName = returnedBody.Remove(0, index + addingIndex);
+                            index = responseBody.IndexOf(m.ToString());
+                            returnedItemName = responseBody.Remove(0, index + addingIndex);
                             firstCharIndex = returnedItemName.IndexOf("\"");
                             if (firstCharIndex >= 0)
                                 returnedItemName = returnedItemName.Remove(firstCharIndex, returnedItemName.Length - firstCharIndex);
@@ -251,7 +258,7 @@ namespace QuickAPI
 
                             sb.AppendLine(returnedItemName);
                             listBox.Items.Add(returnedItemName);
-                            returnedBody = returnedBody.Remove(0, returnedBody.IndexOf(returnedItemName) + returnedItemName.Length);
+                            responseBody = responseBody.Remove(0, responseBody.IndexOf(returnedItemName) + returnedItemName.Length);
                             Console.WriteLine("--firstCharIndex: " + firstCharIndex);
                             Console.WriteLine("--returnedItemName: " + returnedItemName);
                         }
@@ -279,8 +286,6 @@ namespace QuickAPI
 
         public static void DeleteRequest(string itemName, string resourceUrl)
         {
-            Console.Out.WriteLine(itemName +", " + resourceUrl);
-
             string urlFiltering = "";
             string finalUrl = "";
 
@@ -292,25 +297,17 @@ namespace QuickAPI
             {
                 urlFiltering = string.Concat(resourceUrl, "?Name=" + itemName);
             }
-            Console.Out.WriteLine(urlFiltering);
 
             int firstCharIndex;
             string returnedId = "";
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlFiltering);
-            request.Headers.Add("x-freestyle-api-auth", ApiToken);
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream resStream = response.GetResponseStream();
-            StreamReader readStream = new StreamReader(resStream, Encoding.UTF8);
-            string returnedBody = readStream.ReadToEnd();
-            Console.Out.WriteLine(returnedBody);
+            SendGetRequest(urlFiltering);
 
-            returnedBody = returnedBody.Remove(0, 8);
-            firstCharIndex = returnedBody.IndexOf("\"");
+            responseBody = responseBody.Remove(0, 8);
+            firstCharIndex = responseBody.IndexOf("\"");
             if (firstCharIndex >= 0)
-                returnedId = returnedBody.Remove(firstCharIndex, returnedBody.Length - firstCharIndex);
+                returnedId = responseBody.Remove(firstCharIndex, responseBody.Length - firstCharIndex);
 
-            Console.Out.WriteLine("final id: " + returnedId);
             finalUrl = resourceUrl + "/" + returnedId;
 
             HttpWebRequest request2 = (HttpWebRequest)WebRequest.Create(finalUrl);
@@ -339,11 +336,8 @@ namespace QuickAPI
                 LoadJson();
             }
             else url = recourcesList[0];
-            //            login = "magentoClint@dydacomp.biz";
-            //            password = "Password#1";
             string DATA = @"{""username"":""" + login + "\",\"Password\":\"" + password + "\"}";
 
-            Console.Out.WriteLine("---URL: " + selectedEnvironmentLink + url);
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(selectedEnvironmentLink + url);
 
             if (url != recourcesList[0])
@@ -360,7 +354,6 @@ namespace QuickAPI
             try
             {
                 StreamWriter requestWriter = new StreamWriter(request.GetRequestStream(), System.Text.Encoding.ASCII);
-                Console.Out.WriteLine("---DATA: " + DATA);
 
                 requestWriter.Write(DATA);
                 requestWriter.Close();
@@ -369,7 +362,6 @@ namespace QuickAPI
                 Stream webStream = webResponse.GetResponseStream();
                 StreamReader responseReader = new StreamReader(webStream);
                 response = responseReader.ReadToEnd();
-                Console.Out.WriteLine("----Response(try): " + response);
                 ApiToken = response.Replace("{\"token\":\"", "").Replace("\"}", "");
                 responseReader.Close();
                 if (!url.Contains("auth"))
@@ -377,18 +369,12 @@ namespace QuickAPI
                     url = url.Trim('/').TrimEnd('s');
                     MessageBox.Show("Request completed. New " + url+ " has been created.");
                 }
-
             }
             catch (WebException e)
             {
-                Console.Out.WriteLine("-----------------");
-                Console.Out.WriteLine("----Response(catch): " + response);
-                Console.Out.WriteLine(e.Message);
                 MessageBox.Show("Request failed:\n" + e.Message);
             }
-
             response = "";
-
         }
     }
 }

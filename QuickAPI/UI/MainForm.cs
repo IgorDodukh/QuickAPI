@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -33,6 +34,7 @@ namespace QuickAPI
         public static string newProductQuantityValue;
 
         public static string orderNumber;
+        private Thread demoThread;
 
         public MainForm()
         {
@@ -40,19 +42,31 @@ namespace QuickAPI
             this.FormClosing += QuickAPIMain_FormClosing;
         }
 
+        private void runSendAction()
+        {
+            ParametersReader.ReadDefaultNames();
+            ParametersReader.ReadDefaultVariables();
+/*            RequestsHandler.requestTypeIndex = requestTypeComboBox.SelectedIndex;
+            RequestsHandler.entityTypeIndex = entityTypeComboBox.SelectedIndex;*/
+            RequestsHandler.SendJson();
+        }
+
         private void sendButton_Click(object sender, EventArgs e)
         {
+            RequestsHandler.requestTypeIndex = requestTypeComboBox.SelectedIndex;
+            RequestsHandler.entityTypeIndex = entityTypeComboBox.SelectedIndex;
+
+            this.demoThread = new Thread(new ThreadStart(this.runSendAction));
+
+//            this.demoThread.Start();
+
             if (orderNumberTextBox.Visible == true)
             {
                 if (orderNumberTextBox.Text != "")
                 {
+                    this.demoThread.Start();
+                    //                    runSendAction();
                     orderNumber = orderNumberTextBox.Text;
-                    ParametersReader.ReadDefaultNames();
-                    ParametersReader.ReadDefaultVariables();
-                    RequestsHandler.requestTypeIndex = requestTypeComboBox.SelectedIndex;
-                    RequestsHandler.entityTypeIndex = entityTypeComboBox.SelectedIndex;
-                    RequestsHandler.SendJson();
-
                 }
                 else
                 {
@@ -61,12 +75,8 @@ namespace QuickAPI
             }
             else
             {
-                ParametersReader.ReadDefaultNames();
-                ParametersReader.ReadDefaultVariables();
-                RequestsHandler.requestTypeIndex = requestTypeComboBox.SelectedIndex;
-                RequestsHandler.entityTypeIndex = entityTypeComboBox.SelectedIndex;
-                RequestsHandler.SendJson();
-
+                this.demoThread.Start();
+ //               runSendAction();
             }
         }
 
@@ -84,7 +94,7 @@ namespace QuickAPI
             entityTypeComboBox.DataSource = new BindingSource(entityTypes, null);
             entityTypeComboBox.DisplayMember = "Key";
             entityTypeComboBox.ValueMember = "Value";
-            entityTypeComboBox.SelectedIndex = 0;
+            entityTypeComboBox.SelectedIndex = 1;
 
             Dictionary<string, string> requestTypes = new Dictionary<string, string>();
             requestTypes.Add("GET", "View");
@@ -314,7 +324,6 @@ namespace QuickAPI
 
         private void entityTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             if (eventLabel.Text.Contains(" "))
             {
                 string entityValue = ((KeyValuePair<string, string>)entityTypeComboBox.SelectedItem).Key;
@@ -337,18 +346,9 @@ namespace QuickAPI
                         label5.Visible = false;
                         orderNumberTextBox.Visible = false;
                     }
-                } /*else if (requestValue.Contains("View"))
+                } else if (requestValue.Contains("View"))
                 {
-                    if (entityValue.Contains("Product"))
-                    {
-                        label5.Text = "Not supported!!!";
-                        label5.Visible = true;
-                    } else if (entityValue.Contains("Order"))
-                    {
-                        label5.Text = "Not supported!!!";
-                        label5.Visible = true;
-                    }
-                    else if (entityValue.Contains("Customer"))
+                    if (entityValue.Contains("Product") || entityValue.Contains("Order") || entityValue.Contains("Customer"))
                     {
                         label5.Text = "Not supported!!!";
                         label5.Visible = true;
@@ -357,10 +357,8 @@ namespace QuickAPI
                     {
                         label5.Visible = false;
                     }
-                }*/
+                }
             }
-
-            
         }
 
         private void requestTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -383,14 +381,25 @@ namespace QuickAPI
                         label5.Visible = true;
                         orderNumberTextBox.Visible = true;
                     }
-                    else
+                    else if (requestValue.Contains("View"))
                     {
-                        label5.Visible = false;
+                        label5.Text = "Not supported!!!";
+                        label5.Visible = true;
                         orderNumberTextBox.Visible = false;
                     }
                 }
-            }
 
+                if (entityValue.Contains("Product") || entityValue.Contains("Order") || entityValue.Contains("Customer"))
+                {
+                    if (requestValue.Contains("View"))
+                    {
+                        label5.Text = "Not supported!!!";
+                        label5.Visible = true;
+                    }
+                    else label5.Visible = false;
+                }
+                else label5.Visible = false;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
