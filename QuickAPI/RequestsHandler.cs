@@ -110,16 +110,6 @@ namespace QuickAPI
             return responseBody;
         }
 
-        public static void SendPostRequest()
-        {
-            string result = "";
-
-            var client = new WebClient();
-            client.Headers[HttpRequestHeader.ContentType] = "application/json";
-            result = client.UploadString(selectedEnvironmentLink + url, requestsList[requestTypeIndex], json);
-            url = url.Trim('/').TrimEnd('s');
-
-        }
 
         public static void SendJson()
         {
@@ -208,7 +198,7 @@ namespace QuickAPI
                         deleteButton.BackColor = Color.FromArgb(255, 53, 53);
                         deleteButton.ForeColor = Color.White;
                         deleteButton.Font = new Font("Microsoft Sans Serif", 8, FontStyle.Bold);
-//                        deleteButton.Enabled = false;
+                        deleteButton.Enabled = false;
 
                         form.ClientSize = new Size(240, 300);
                         form.Text = "Found elements list";

@@ -339,6 +339,7 @@ namespace QuickAPI
                     {
                         label5.Text = "Order # for reorder:";
                         label5.Visible = true;
+                        sendButton.Enabled = true;
                         orderNumberTextBox.Visible = true;
                     }
                     else
@@ -352,10 +353,12 @@ namespace QuickAPI
                     {
                         label5.Text = "Not supported!!!";
                         label5.Visible = true;
+                        sendButton.Enabled = false;
                     }
                     else
                     {
                         label5.Visible = false;
+                        sendButton.Enabled = true;
                     }
                 }
             }
@@ -379,12 +382,14 @@ namespace QuickAPI
                     {
                         label5.Text = "Order # for reorder:";
                         label5.Visible = true;
+                        sendButton.Enabled = true;
                         orderNumberTextBox.Visible = true;
                     }
                     else if (requestValue.Contains("View"))
                     {
                         label5.Text = "Not supported!!!";
                         label5.Visible = true;
+                        sendButton.Enabled = false;
                         orderNumberTextBox.Visible = false;
                     }
                 }
@@ -395,10 +400,14 @@ namespace QuickAPI
                     {
                         label5.Text = "Not supported!!!";
                         label5.Visible = true;
+                        sendButton.Enabled = false;
                     }
-                    else label5.Visible = false;
+                    else if (!entityValue.Contains("Order"))
+                    {
+                        label5.Visible = false;
+                        sendButton.Enabled = true;
+                    }
                 }
-                else label5.Visible = false;
             }
         }
 
